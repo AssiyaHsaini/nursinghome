@@ -1,6 +1,10 @@
 <?php
 
-require_once "./app/views/common/header.php"
+require "vendor/autoload.php";
 
-?>
-<h1>momo</h1>
+use App\RouterController;
+
+$router = new RouterController($_GET['url']);
+$router->get('/', "\AuthenticationController::indexAction");
+
+$router->run();

@@ -1,0 +1,16 @@
+{
+    "name": "master/nursinghome",
+    "authors": [
+        {
+            "name": "",
+            "email": "blabla@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": []
+    }
+}
