@@ -54,7 +54,7 @@ CREATE TABLE executedtask
     did BOOLEAN NOT NULL, 
     id_task INT UNSIGNED NOT NULL,
     CONSTRAINT persontask FOREIGN KEY (id_person) REFERENCES person(id),
-    CONSTRAINT roomtask FOREIGN KEY (id_room) REFERENCES room(id)
+    CONSTRAINT roomtask FOREIGN KEY (id_room) REFERENCES room(id),
     CONSTRAINT task FOREIGN KEY (id_task) REFERENCES task(id)
 );
 

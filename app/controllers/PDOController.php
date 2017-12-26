@@ -5,7 +5,7 @@ namespace App;
 /**
  * classe qui implémente Singleton 
  */
-class PDOCOntroller
+class PDOController
 {
    
     private static $instance;
@@ -14,7 +14,7 @@ class PDOCOntroller
     {
         try
         {
-            $this->instance = new PDO('localhost','nursinghome','root','root');
+            self::$instance = new \PDO("mysql:dbname=nursinghome;host=localhost",'root','');
         }
        catch(Exception $e)
        {
@@ -22,11 +22,9 @@ class PDOCOntroller
        }
     }
 
-    
-
     public static function getInstance()
     {
-        if (!isset (self::$instance) )
+        if (!isset(self::$instance) )
         {
             self::$instance = new self;
         }
