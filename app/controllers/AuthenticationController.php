@@ -10,7 +10,8 @@ class AuthenticationController {
     public static $message;
 
     static function indexAction(){
-        $view = new View("/../views/login/login.view.php", ['title' => "Page de login" ]);
+        
+        $view = new View(__DIR__ . "/../views/login/login.view.php", ['title' => "Page de login" ]);
         $view->render();
     }
 }

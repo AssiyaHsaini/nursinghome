@@ -14,7 +14,7 @@ class PDOController
     {
         try
         {
-            self::$instance = new \PDO("mysql:dbname=nursinghome;host=localhost",'root','');
+            self::$instance = new \PDO("mysql:dbname=nursinghome;host=localhost",'root','root');
         }
        catch(Exception $e)
        {
