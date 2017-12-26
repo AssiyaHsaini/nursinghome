@@ -8,7 +8,7 @@ Pour finir, installez Composer.
 | Outils | Liens |
 | ------ | ------ |
 | Git | https://git-scm.com/|
-| Github | plugins/github/README.md|
+| Github | https://github.com/|
 | Wamp Server (Pour Windows) | http://www.wampserver.com/ |
 | Mamp Server (Pour MAC) | https://www.mamp.info/en/downloads/ |
 | Composer (Gestionnaire de dépendance PHP) | https://getcomposer.org/download/ |
