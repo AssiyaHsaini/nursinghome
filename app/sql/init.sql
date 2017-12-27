@@ -70,7 +70,7 @@ VALUES
 (0,'cadre_sante'),
 (1,'aide_soignante');
 
-INSERT INTO persons(email,code,lastname,firstname,roles)
+INSERT INTO persons(email,code,lastname,firstname,role)
 VALUES
 ('assiya.hsaini@edu.esiee.fr','password','hsaini','assiya',0);
 
@@ -82,8 +82,3 @@ INSERT INTO roomtypes(name)
 VALUES
 ('salle_commune'),
 ('chambre');
-
-
-
-
-

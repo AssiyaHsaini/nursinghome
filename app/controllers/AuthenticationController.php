@@ -4,6 +4,7 @@ namespace App;
 
 use App\View;
 use App\ValidatorController;
+use App\QueriesController;
 
 class AuthenticationController {
 
@@ -21,11 +22,21 @@ class AuthenticationController {
         $validator = new ValidatorController($_POST);
         $validator->existsField('code', "Veuillez remplir le champ");
         $validator->isNotEmpty('code', "Veuillez remplir le champ");
+        $validator->isEmail('email', "Veuillez remplir le champ email");     
+        $validator->existsField('email', "Veuillez remplir le champ email");
 
         if ($validator->isValid())
         {
-            // pdo.... session... redirection vers une autre page...
-            echo "SUPER !"; 
+            $q = new QueriesController();
+            $res = $q->login($_POST['email'], $_POST['code']);
+
+            if ($res['error'] == false) {
+                echo "SUPER !";                 
+            }
+            else {
+                $view = new View(__DIR__ . "/../views/login/login.view.php", ['errors' => $res['message']]);
+                $view->render();
+            }
         }
         else 
         {

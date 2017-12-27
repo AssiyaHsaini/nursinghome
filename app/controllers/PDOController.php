@@ -4,6 +4,7 @@ namespace App;
 
 /**
  * classe qui implémente Singleton 
+ * retourne une seule instance de la classe PDO
  */
 class PDOController
 {
@@ -26,8 +27,9 @@ class PDOController
     {
         if (!isset(self::$instance) )
         {
-            self::$instance = new self;
+            self::$instance = self::$instance = new \PDO("mysql:dbname=nursinghome;host=localhost",'root','root');
         }
         return self::$instance;
     }
+
 }
