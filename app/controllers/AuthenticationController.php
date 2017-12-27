@@ -17,7 +17,6 @@ class AuthenticationController {
 
     static function indexPostAction(){
         var_dump($_POST);
-        
         // $view = new View(__DIR__ . "/../views/login/login.view.php", ['title' => "Page de login" ]);
         // $view->render();
     }
