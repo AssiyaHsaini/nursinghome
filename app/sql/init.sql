@@ -2,44 +2,47 @@ CREATE DATABASE nursinghome CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE nursinghome;
 
-CREATE TABLE person
+CREATE TABLE roles
+(
+    id INT UNSIGNED NOT NULL PRIMARY KEY,
+    libelle VARCHAR(20)
+);
+
+CREATE TABLE persons
 (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
 	code VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
-    firstname VARCHAR(30) NOT NULL,
-    role VARCHAR(30) NOT NULL,
-    CONSTRAINT roleconstraint FOREIGN KEY (role) REFERENCES role(libelle)   
+    firstname VARCHAR(30) NOT NULL, 
+    roles INT UNSIGNED NOT NULL,
+    CONSTRAINT roleconstraint FOREIGN KEY (roles) REFERENCES roles(id)   
 );
 
-CREATE TABLE role
-(
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    libelle VARCHAR(20),
-    date_creation DATETIME
-);
-
-CREATE TABLE room
+CREATE TABLE services
 (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	service VARCHAR(30) NOT NULL,
-    type VARCHAR(30) NOT NULL,
-    CONSTRAINT serviceconstraint FOREIGN KEY (service) REFERENCES service(floor),
-    CONSTRAINT typeconstraint FOREIGN KEY (type) REFERENCES roomtype(name)   
+    floor INT(30) NOT NULL,
+    name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE service
+CREATE TABLE roomtypes
 (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    floor INT(30)
+    name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE roomtype
+CREATE TABLE rooms
 (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name INT(30)
+	service_id INT UNSIGNED NOT NULL,
+    type_id INT UNSIGNED  NOT NULL,
+    CONSTRAINT serviceconstraint FOREIGN KEY (service_id) REFERENCES services(id),
+    CONSTRAINT typeconstraint FOREIGN KEY (type_id) REFERENCES roomtypes(id)   
 );
-CREATE TABLE task
+
+
+CREATE TABLE tasks
 (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
@@ -49,14 +52,38 @@ CREATE TABLE task
 CREATE TABLE executedtask
 (
 	id_person INT UNSIGNED NOT NULL ,
-    id_room INT NOT NULL,
+    id_room INT UNSIGNED NOT NULL,
     expirationdate DATE NOT NULL,
     did BOOLEAN NOT NULL, 
     id_task INT UNSIGNED NOT NULL,
-    CONSTRAINT persontask FOREIGN KEY (id_person) REFERENCES person(id),
-    CONSTRAINT roomtask FOREIGN KEY (id_room) REFERENCES room(id),
-    CONSTRAINT task FOREIGN KEY (id_task) REFERENCES task(id)
+    CONSTRAINT persontask FOREIGN KEY (id_person) REFERENCES persons(id),
+    CONSTRAINT roomtask FOREIGN KEY (id_room) REFERENCES rooms(id),
+    CONSTRAINT task FOREIGN KEY (id_task) REFERENCES tasks(id)
 );
+
+INSERT INTO tasks(name,description)
+VALUES
+('laver les vitres','blablablablabla');
+
+INSERT INTO roles(id,libelle)
+VALUES
+(0,'cadre_sante'),
+(1,'aide_soignante');
+
+INSERT INTO persons(email,code,lastname,firstname,roles)
+VALUES
+('assiya.hsaini@edu.esiee.fr','password','hsaini','assiya',0);
+
+INSERT INTO services(floor,name)
+VALUES
+(0,'blabla');
+
+INSERT INTO roomtypes(name)
+VALUES
+('salle_commune'),
+('chambre');
+
+
 
 
 
