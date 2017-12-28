@@ -15,7 +15,7 @@ CREATE TABLE persons
 	code VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
     firstname VARCHAR(30) NOT NULL, 
-    roles INT UNSIGNED NOT NULL,
+    role INT UNSIGNED NOT NULL,
     CONSTRAINT roleconstraint FOREIGN KEY (roles) REFERENCES roles(id)   
 );
 
@@ -82,3 +82,4 @@ INSERT INTO roomtypes(name)
 VALUES
 ('salle_commune'),
 ('chambre');
+

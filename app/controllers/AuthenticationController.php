@@ -25,15 +25,19 @@ class AuthenticationController {
         $validator->isEmail('email', "Veuillez remplir le champ email");     
         $validator->existsField('email', "Veuillez remplir le champ email");
 
+        $q = new QueriesController();
+
         if ($validator->isValid())
         {
-            $q = new QueriesController();
+            
             $res = $q->login($_POST['email'], $_POST['code']);
 
-            if ($res['error'] == false) {
-                echo "SUPER !";                 
+            if ($res['error'] == false) 
+            {
+                header("Location: /nursinghome/admin");
             }
             else {
+
                 $view = new View(__DIR__ . "/../views/login/login.view.php", ['errors' => $res['message']]);
                 $view->render();
             }

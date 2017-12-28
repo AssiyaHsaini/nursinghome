@@ -195,6 +195,12 @@ class ValidatorController {
 			$this->isError();
 		}
 	}
+	
+	public static function checkSession()
+	{
+		if ((!isset($_SESSION['role']) || !isset($_SESSION['id'])))
+			header("Location: /nursinghome/");
+	}
 
 	/*
 		Fonction qui retourne true si aucune erreur est survenu sinon false
