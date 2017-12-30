@@ -11,7 +11,7 @@ require_once(__DIR__ .'/../common/header.php');
 
 <h1> aide soignante  </h1>
 <?php 
-
+// var_dump($this->data['tasks']);
 
 if (isset($this->data['tasks']) && count($this->data['tasks']) > 0 ) {
 
@@ -21,7 +21,7 @@ if (isset($this->data['tasks']) && count($this->data['tasks']) > 0 ) {
         <p><? echo " - " . $task['name']; ?></p>
 
         <?php 
-            if(!$task['did'])
+            if(!$task['did']) 
             { ?>
                 <form action="" method="POST">
                 <input type="hidden" name="personId" value="<? echo $_SESSION["id"] ;?>"> 
@@ -30,6 +30,7 @@ if (isset($this->data['tasks']) && count($this->data['tasks']) > 0 ) {
                 <input type="submit" value="Valider" />
             <?php
             }
+          
             else {
                 echo "OK !";
             }

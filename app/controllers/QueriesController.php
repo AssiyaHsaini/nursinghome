@@ -79,7 +79,11 @@ class QueriesController
         FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
         WHERE executedtask.id_person=?');
         $req->execute([$_SESSION["id"]]);
-        return $req;
+        $tasks = $req->fetchAll();
+        foreach ($tasks as $key => $task) {
+            $tasks[$key]['days'] = $this->getDaysExpiration($_SESSION['id'],$task['id_task'],$task['id_room']);
+        }
+        return $tasks;
     }
 
     public function getNursings()
@@ -211,4 +215,24 @@ class QueriesController
         $req->execute([0]);
         return $req->fetchAll();
     }
+
+
+    public function getDaysExpiration($id_person,$id_task,$id_room)
+    {
+
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT *
+        FROM executedtask
+        WHERE id_person=? AND id_room=? AND id_task= ?');
+        $req->execute([
+            $id_person,
+            $id_room,
+            $id_task,
+        ]);
+        $data=  $req->fetch();
+        $expirationdate = $data['expirationdate'];
+        $duree=(strtotime("2017-12-29")-strtotime(date('Y-m-d'))) / 86400;
+        return $duree;
+    }
+
 }

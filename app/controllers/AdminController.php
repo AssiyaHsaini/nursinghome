@@ -21,8 +21,9 @@ class AdminController {
            $view = new View(__DIR__ . "/../views/admin/cadreSante.view.php", []);            
         }
         else {
+
             $query = new QueriesController(); 
-            $tasks = $query->getTasks()->fetchAll();
+            $tasks = $query->getTasks();
             $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks]);            
         }
         $view->render();
@@ -129,7 +130,8 @@ class AdminController {
         ValidatorController::checkSession();
         $q = new QueriesController();
 
-
+        //var_dump($_POST);
+        //die();
         if ($_POST['postMethod'] == "add")
         {
              $q->addTask($_POST['personId'],$_POST['rooms'],$_POST['tasks'],$_POST['date']);
@@ -149,12 +151,20 @@ class AdminController {
     {
         ValidatorController::checkSession();
         $q = new QueriesController();
-        $q->validerTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
-        $tasks = $q->getTasks()->fetchAll();
-        $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "message" => "tâche faite"]);     
+        $date =  $q->getDaysExpiration($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
+        //var_dump($date);
+        //die();
+        if ($date<0) 
+        {
+            $tasks = $q->getTasks();
+            $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "errors" => "Le delai de cette tache est expiré"]); 
+        }
+        else {
+            $q->validerTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
+            $tasks = $q->getTasks();
+            $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "message" => "Tâche faite"]); 
+        }
         $view->render();
-
-
     }
 
 
@@ -167,10 +177,5 @@ class AdminController {
          $view->render();
         
     }
-
-
-
-
-
 
 }
