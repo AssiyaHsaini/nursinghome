@@ -39,8 +39,20 @@ class AdminController {
 
     static function nursingsPostsAction(){
 
+        $q = new QueriesController();
+        $data;
+
+
         if ($_POST['postMethod'] == "delete")
-            echo "delete ".$_POST['personId'];
+        {
+            //echo "delete ".$_POST['personId'];
+            $q->deleteNursing($_POST['personId']);
+            $nursings = $q->getNursings();
+            //$view = new View(__DIR__ . "/../views/admin/nursings.view.php", ['nursings' => $nursings]);
+            $data = ['nursings' => $nursings];
+            
+        }
+
         if ($_POST['postMethod'] == "create")
         {
             $validator = new ValidatorController($_POST);
@@ -48,8 +60,6 @@ class AdminController {
             $validator->isNotEmpty('firstname', "Veuillez remplir le champ");
             $validator->isEmail('email', "Veuillez remplir le champ email");     
             $validator->isNotEmpty('role', "Veuillez remplir le champ email");
-
-            $q = new QueriesController();
 
             if ($validator->isValid())
             {
@@ -59,21 +69,102 @@ class AdminController {
 
                 if ($res==false)
                 {
-                    $view = new View(__DIR__ . "/../views/admin/nursings.view.php", ['nursings' => $nursings]);
-                    $view->render();
+                    //$view = new View(__DIR__ . "/../views/admin/nursings.view.php", ['nursings' => $nursings]);
+                    $data = ['nursings' => $nursings];
+                    
                 }
                 else 
                 {
-                    $view = new View(__DIR__ . "/../views/admin/nursings.view.php", ['nursings' => $nursings, "errors" => "L'ajout a échoué"]);
-                    $view->render();
-
+                    //$view = new View(__DIR__ . "/../views/admin/nursings.view.php", ['nursings' => $nursings, "errors" => "L'ajout a échoué"]);
+                    $data =['nursings' => $nursings, "errors" => "L'ajout a échoué"];
                 }
                 
             }
+            else echo "nlzd";
+        }
+        $view = new View(__DIR__ . "/../views/admin/nursings.view.php", $data);
+        $view->render();
+
+
+    }
+
+    static function tasksAction()
+    {
+        ValidatorController::checkSession();
+        $q = new QueriesController();
+        $nursings = $q->getNursings();
+        $nursingsw = $q->getNursingsWithTask();
+        $allTasks= $q->getAllTasks();
+        $allRooms=$q->getAllRooms();
+        $tasks = [];
+
+        foreach ($nursingsw as $nurse)
+        {
+            $tasks[$nurse['id']] = $q->getTasksNursing($nurse['id']);
+        }
+
+
+        
+        $view = new View(__DIR__ . "/../views/admin/tasks.view.php", ['nursingsw' => $nursingsw, 'tasks' => $tasks, 'allTasks' => $allTasks, 'rooms' => $allRooms, 'nursings' => $nursings]);
+        $view->render();
+    }
+    
+
+    /*static function tasksAction()
+    {
+        $q = new QueriesController();
+        $nursingsw = $q->getNursingsWithTask();
+        $view = new View(__DIR__ . "/../views/admin/tasks.view.php", ['nursingsw' => $nursingsw]);
+        $view->render();
+
+        
+        
+    }*/
+
+    static function tasksPostsAction()
+    {
+        ValidatorController::checkSession();
+        $q = new QueriesController();
+
+
+        if ($_POST['postMethod'] == "add")
+        {
+             $q->addTask($_POST['personId'],$_POST['rooms'],$_POST['tasks'],$_POST['date']);
+             self::tasksAction();
+        }
+        if ($_POST['postMethod'] == "delete")
+        {
+            $q->deleteTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
+            self::tasksAction();
         }
 
 
     }
+
+
+    static function validerPostsAction()
+    {
+        ValidatorController::checkSession();
+        $q = new QueriesController();
+        $q->validerTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
+        $tasks = $q->getTasks()->fetchAll();
+        $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "message" => "tâche faite"]);     
+        $view->render();
+
+
+    }
+
+
+    static function didAction()
+    {
+        ValidatorController::checkSession();
+         $q = new QueriesController();
+         $tasks= $q->getTasksNotDid();
+         $view = new View(__DIR__ . "/../views/admin/tasksNotDid.view.php", ['tasks' => $tasks]);
+         $view->render();
+        
+    }
+
 
 
 

@@ -75,7 +75,7 @@ class QueriesController
     public function getTasks()
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('SELECT executedtask.id_room, executedtask.expirationdate , tasks.name, tasks.description
+        $req = $db->prepare('SELECT executedtask.id_room,executedtask.id_task, executedtask.expirationdate , tasks.name, tasks.description, executedtask.did
         FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
         WHERE executedtask.id_person=?');
         $req->execute([$_SESSION["id"]]);
@@ -105,9 +105,113 @@ class QueriesController
             $person->getFirstName(),
             $person->getRole(),
         ]);
-
         return $req->fetch();
     }
+
+    public function deleteNursing($id)
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('DELETE FROM persons WHERE id=?');
+        $req->execute([$id]);
+        //$donnees = $req->fetch();
+        //var_dump($donnees);
+        //return $donnees;
+    }
+
+    public function getNursingsWithTask()
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT DISTINCT persons.lastname, persons.firstname, persons.email, persons.role , persons.id
+        FROM persons JOIN executedtask ON persons.id=executedtask.id_person
+       ');
+        $req->execute();
+        return $req->fetchAll();
+    } 
+
+    public function getTasksNursing($id)
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT executedtask.id_room, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
+        FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        WHERE executedtask.id_person=?');
+        $req->execute([$id]);
+
+        return $req->fetchAll();
+    }
+
+    public function addTask($person,$room,$task,$date)
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('INSERT INTO executedtask(id_person,id_room,expirationdate,did,id_task)
+        VALUES
+        (?,?,?,?,?)');
+        $req->execute([
+            $person,
+            $room,
+            $date,
+            0,
+            $task,
+        ]);;
+        return $req->fetchAll();
+       
+    }
+
+    public function getAllTasks()
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT name, id FROM tasks');
+        $req->execute([]);
+        return $req->fetchAll();
+    }
+
+
+    public function getAllRooms()
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT roomtypes.name, rooms.id
+         FROM rooms JOIN roomtypes ON roomtypes.id= rooms.type_id');
+        $req->execute([]);
+        return $req->fetchAll();
+    }
+
+
+    public function deleteTask($id_person, $id_tasks, $id_rooms)
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('DELETE FROM executedtask WHERE id_person=? AND id_task= ? AND id_room= ?');
+        $req->execute([
+            $id_person,
+            $id_tasks,
+            $id_rooms,
+        ]);;
+        return $req->fetchAll();
+       
+    }
+
+
+    public function validerTask($id_person,$id_task,$id_room)
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('UPDATE executedtask
+        SET did =  1 
+        WHERE id_person=? AND id_room=? AND id_task= ?');
+        $req->execute([
+            $id_person,
+            $id_room,
+            $id_task,
+        ]);
+    }
+
+    public function getTasksNotDid()
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT executedtask.id_room,executedtask.id_person, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task 
+        FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        WHERE executedtask.did=?');
+        $req->execute([0]);
+        return $req->fetchAll();
+    }
+
 
 
 
