@@ -211,8 +211,4 @@ class QueriesController
         $req->execute([0]);
         return $req->fetchAll();
     }
-
-
-
-
 }

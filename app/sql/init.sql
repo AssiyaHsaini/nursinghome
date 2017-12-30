@@ -16,7 +16,7 @@ CREATE TABLE persons
     lastname VARCHAR(30) NOT NULL,
     firstname VARCHAR(30) NOT NULL, 
     role INT UNSIGNED NOT NULL,
-    CONSTRAINT roleconstraint FOREIGN KEY (roles) REFERENCES roles(id)   
+    CONSTRAINT roleconstraint FOREIGN KEY (role) REFERENCES roles(id)   
 );
 
 CREATE TABLE services
@@ -52,10 +52,11 @@ CREATE TABLE tasks
 CREATE TABLE executedtask
 (
 	id_person INT UNSIGNED NOT NULL ,
-    id_room INT UNSIGNED NOT NULL,
-    expirationdate DATE NOT NULL,
+    id_room INT UNSIGNED NOT NULL ,
+    expirationdate DATE NOT NULL ,
     did BOOLEAN NOT NULL, 
-    id_task INT UNSIGNED NOT NULL,
+    id_task INT UNSIGNED NOT NULL ,
+    PRIMARY KEY(id_person,id_room,id_task),
     CONSTRAINT persontask FOREIGN KEY (id_person) REFERENCES persons(id),
     CONSTRAINT roomtask FOREIGN KEY (id_room) REFERENCES rooms(id),
     CONSTRAINT task FOREIGN KEY (id_task) REFERENCES tasks(id)
@@ -82,4 +83,10 @@ INSERT INTO roomtypes(name)
 VALUES
 ('salle_commune'),
 ('chambre');
+
+INSERT INTO rooms(service_id,type_id)
+VALUES
+('salle_commune'),
+('chambre');
+
 

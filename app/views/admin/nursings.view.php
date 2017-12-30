@@ -41,7 +41,6 @@ if (isset($this->data['nursings']) && count($this->data['nursings']) > 0 ) {
        <label for="email"> email </label> : <input type="text" name="email" id="email" required/>
        <label for="role">role</label>
        <select name="role" id="role">
-          <option value="0">cadre santé</option>
           <option value="1">aide soignante</option>
        </select>
        <input type="hidden" name="postMethod" value="create">       

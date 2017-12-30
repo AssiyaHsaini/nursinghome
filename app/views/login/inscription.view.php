@@ -1,11 +1,9 @@
 <HTML>
-    <head>
 
-        <title>Site de maintenance</title> 
+<!-- Vue pour créer un utilisateur par la cadre santé-->
+
     
-    </head>
     
-    <body>
         <h1>Inscription</h1> 
        
         <form action="" method="POST">
@@ -22,5 +20,5 @@
         </p>
         </form>
        
-    </body>
+    
 </HTML>

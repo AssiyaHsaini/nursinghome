@@ -65,7 +65,7 @@ class AdminController {
             {
                 $person= new Person($_POST['lastname'],$_POST['firstname'],$_POST['role'],$_POST['email']);
                 $res = $q->addNursing($person);
-                $nursings = $q->getNursings();
+                $nursings = $q->getNursings();     
 
                 if ($res==false)
                 {
@@ -80,7 +80,10 @@ class AdminController {
                 }
                 
             }
-            else echo "nlzd";
+            else {
+                $nursings = $q->getNursings();
+                $data = ['errors'=>$validator->getErrors(), 'nursings' => $nursings];
+            }
         }
         $view = new View(__DIR__ . "/../views/admin/nursings.view.php", $data);
         $view->render();
