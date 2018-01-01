@@ -14,7 +14,6 @@ $router->get('/', "\AuthenticationController::indexAction");
 $router->post('/', "\AuthenticationController::indexPostAction");
 $router->get('/logout', "\AuthenticationController::logoutAction");
 $router->get('/admin', "\AdminController::indexAction");
-$router->get('/logout', "\AuthenticationController::logoutAction");
 $router->post('/admin', "\AdminController::validerPostsAction");
 
 $router->get('/admin/nursings', "\AdminController::nursingsAction");

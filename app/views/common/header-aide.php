@@ -13,7 +13,7 @@ require_once(__DIR__ .'/../common/head.php');
     <ul class="navbar-nav ml-auto">
 
       <li class="nav-item">
-        <a class="nav-link" href="/logout">Se déconnecter</a>
+        <a class="nav-link" href="/nursinghome/logout">Se déconnecter</a>
       </li>
      
     </ul>

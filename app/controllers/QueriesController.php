@@ -232,7 +232,7 @@ class QueriesController
         ]);
         $data=  $req->fetch();
         $expirationdate = $data['expirationdate'];
-        $duree=(strtotime("2017-12-29")-strtotime(date('Y-m-d'))) / 86400;
+        $duree=(strtotime($expirationdate)-strtotime(date('Y-m-d'))) / 86400;
         return $duree;
     }
 }
