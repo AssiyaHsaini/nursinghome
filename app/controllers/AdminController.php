@@ -61,6 +61,7 @@ class AdminController {
             $validator->isEmail('email', "Veuillez remplir le champ email");     
             $validator->isNotEmpty('role', "Veuillez remplir le champ email");
 
+    
             if ($validator->isValid())
             {
                 $person= new Person($_POST['lastname'],$_POST['firstname'],$_POST['role'],$_POST['email']);
@@ -83,6 +84,7 @@ class AdminController {
             else {
                 $nursings = $q->getNursings();
                 $data = ['errors'=>$validator->getErrors(), 'nursings' => $nursings];
+                
             }
         }
         $view = new View(__DIR__ . "/../views/admin/nursings.view.php", $data);

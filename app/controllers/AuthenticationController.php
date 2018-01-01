@@ -25,6 +25,7 @@ class AuthenticationController {
         $validator->isEmail('email', "Veuillez remplir le champ email");     
         $validator->existsField('email', "Veuillez remplir le champ email");
 
+
         $q = new QueriesController();
 
         if ($validator->isValid())
@@ -49,5 +50,11 @@ class AuthenticationController {
             $view->render();
         }
 
+    }
+
+    static function logoutAction()
+    {
+        session_destroy();
+        header("Location: /nursinghome/");
     }
 }

@@ -16,13 +16,13 @@ class ValidatorController {
 
 	private function isError()
 	{	
-		if (isset($this->errors['errors']))
-		{
-			if ($this->errors['error'] == 0)
-				$this->errors['error'] = 1;
-		}
-		else
-			$this->errors['error'] = 1;
+		// if (isset($this->errors['errors']))
+		// {
+		// 	if ($this->errors['error'] == 0)
+		// 		$this->errors['error'] = 1;
+		// }
+		// else
+		// 	$this->errors['error'] = 1;
 	}
 
 	/*
@@ -218,4 +218,6 @@ class ValidatorController {
 	{
 		return $this->errors;
 	}
+
+
 }
