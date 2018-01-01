@@ -146,7 +146,7 @@ class AdminController {
 
     }
 
-
+        
     static function validerPostsAction()
     {
         ValidatorController::checkSession();

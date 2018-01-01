@@ -50,4 +50,11 @@ class AuthenticationController {
         }
 
     }
+
+    static function logoutAction()
+    {
+        session_destroy();
+        header("Location: /nursinghome/");
+        
+    }
 }
