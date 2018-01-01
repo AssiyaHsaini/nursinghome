@@ -75,8 +75,11 @@ class QueriesController
     public function getTasks()
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('SELECT executedtask.id_room,executedtask.id_task, executedtask.expirationdate , tasks.name, tasks.description, executedtask.did
+        $req = $db->prepare('SELECT executedtask.id_room,executedtask.id_task, executedtask.expirationdate , tasks.name AS taskName, tasks.description AS taskDescription , executedtask.did,rooms.service_id, rooms.type_id, services.name AS serviceName, roomtypes.name AS typeName
         FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        JOIN rooms ON executedtask.id_room =rooms.id
+        JOIN services ON services.id=rooms.service_id
+        JOIN roomtypes ON roomtypes.id=rooms.type_id
         WHERE executedtask.id_person=?');
         $req->execute([$_SESSION["id"]]);
         $tasks = $req->fetchAll();
@@ -85,7 +88,7 @@ class QueriesController
         }
         return $tasks;
     }
-
+    
     public function getNursings()
     {
         $db = PDOController::getInstance();
@@ -192,7 +195,6 @@ class QueriesController
        
     }
 
-
     public function validerTask($id_person,$id_task,$id_room)
     {
         $db = PDOController::getInstance();
@@ -216,7 +218,6 @@ class QueriesController
         return $req->fetchAll();
     }
 
-
     public function getDaysExpiration($id_person,$id_task,$id_room)
     {
 
@@ -234,5 +235,4 @@ class QueriesController
         $duree=(strtotime("2017-12-29")-strtotime(date('Y-m-d'))) / 86400;
         return $duree;
     }
-
 }

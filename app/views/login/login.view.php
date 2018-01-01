@@ -1,21 +1,21 @@
 <?php
-require_once(__DIR__ .'/../common/header.php');
+require_once(__DIR__ .'/../common/head.php');
 ?>
 
-<?php if (isset($this->data['errors'])) { ?>
-    <div class="alert">
-        <?php // echo $this->data['error'] ?>
-        <?php var_dump($this->data['errors']) ?>
+<link rel="stylesheet" href="./public/css/main.css">
+
+
+<div class="container">
+
+        <?php $this->showErrors(); ?>
+
+      <form class="form-signin" method="post" action="">
+        <h2 class="form-signin-heading">Connexion</h2>
+        <label for="email" class="sr-only">Email </label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="Email" required="" autofocus="">
+        <label for="code" class="sr-only">Password</label>
+        <input type="password" name="code" id="code" class="form-control" placeholder="Mot de passe" required="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+      </form>
+
     </div>
-<?php } ?>
-
-<h1>Login </h1>
-
-<form method="post" action="" >
-	
-	<label for="email"> Votre email </label> : <input type="text" name="email" id="email" />
-    <label for="code"> Votre code </label> : <input type="text" name="code" id="code" />
-    <br/>
-    <input type="submit" value="Valider" /> 
-
-</form>
