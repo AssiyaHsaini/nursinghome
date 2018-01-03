@@ -1,7 +1,9 @@
 <?php
-require_once(__DIR__ .'/../common/head.php');
+// require_once(__DIR__ .'/../common/head.php');
+require_once(__ROOT__ .'/app/views/common/head.php');
 ?>
 
+<link rel="stylesheet" href="./public/css/bootstrap.min.css">
 <link rel="stylesheet" href="./public/css/main.css">
 
 

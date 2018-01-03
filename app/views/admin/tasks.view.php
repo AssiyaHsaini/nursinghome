@@ -1,5 +1,6 @@
 <?php
-require_once(__DIR__ .'/../common/header-cadre.php');
+// require_once(__DIR__ .'/../common/header-cadre.php');
+require_once(__ROOT__ .'/app/views/common/header-cadre.php');
 ?>
 
 <?php $this->showErrors(); ?>

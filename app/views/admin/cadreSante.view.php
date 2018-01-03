@@ -1,8 +1,7 @@
 <?php
-require_once(__DIR__ .'/../common/header-cadre.php');
-
+// require_once(__DIR__ .'/../common/header-cadre.php');
+require_once(__ROOT__ .'/app/views/common/header-cadre.php');
 ?>
-
 
 <!--
 <a href="/nursinghome/admin/nursings">Aide Soignantes</a> <br>

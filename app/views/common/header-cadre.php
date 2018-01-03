@@ -1,5 +1,7 @@
 <?php
-require_once(__DIR__ .'/../common/head.php');
+// require_once(__DIR__ .'/head.php');
+require_once(__ROOT__ .'/app/views/common/head.php');
+
 ?>
 
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
@@ -12,7 +14,7 @@ require_once(__DIR__ .'/../common/head.php');
   <a class="nav-link" href="/nursinghome/admin/nursings">Aides soignantes</a>
   <a class="nav-link" href="/nursinghome/admin/tasks">Les tâches</a>
   <a class="nav-link" href="/nursinghome/admin/tasksNotDid">Les tâches non faite</a>
-  <a class="nav-link" href="/nursinghome/admin">Menu</a>
+  <a class="nav-link" href="/nursinghome/admin/">Menu</a>
   
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">

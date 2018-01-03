@@ -35,7 +35,7 @@ class AuthenticationController {
 
             if ($res['error'] == false) 
             {
-                header("Location: /nursinghome/admin");
+                header("Location: /nursinghome/admin/");
             }
             else {
 
