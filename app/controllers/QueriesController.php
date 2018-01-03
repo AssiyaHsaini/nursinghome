@@ -211,8 +211,9 @@ class QueriesController
     public function getTasksNotDid()
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('SELECT executedtask.id_room,executedtask.id_person, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task 
+        $req = $db->prepare('SELECT persons.firstname, persons.lastname, executedtask.id_room,executedtask.id_person, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task 
         FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        JOIN persons ON executedtask.id_person = persons.id
         WHERE executedtask.did=?');
         $req->execute([0]);
         return $req->fetchAll();

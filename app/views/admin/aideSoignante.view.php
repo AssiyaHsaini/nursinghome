@@ -82,3 +82,36 @@ require_once(__DIR__ .'/../common/header-aide.php');
   </tbody>
 </table>
 
+
+<!-- <h1>Inscription</h1> 
+       <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label for="lastname"> Nom </label>
+                <input type="text" name="lastname" id="lastname"  class="form-control"  placeholder="Hsaini" required>
+                </div>
+                <div class="form-group col-md-6">
+                <label for="firstname">Prénom</label>
+                <input type="text" name="firstname" id="firstname"  class="form-control" placeholder="Assiya" required>
+                </div>
+                <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" id="inputAddress" placeholder="Email" required>
+                </div>
+                <div class="form-group col-md-6">
+                <label for="inputState">Role</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Choisir...</option>
+                        <option value="1">aide soignante</option>
+                    </select>
+                </div>
+                <input type="hidden" name="postMethod" value="create">   
+                <input type="submit" value="Inscrire" />   
+            </div>
+  
+            <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+       </form>    -->
+
+
+
+      

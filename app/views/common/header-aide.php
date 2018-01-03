@@ -9,6 +9,8 @@ require_once(__DIR__ .'/../common/head.php');
     <span class="navbar-toggler-icon"></span>
   </button>
 
+
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
 

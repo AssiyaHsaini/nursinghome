@@ -9,6 +9,12 @@ require_once(__DIR__ .'/../common/head.php');
     <span class="navbar-toggler-icon"></span>
   </button>
 
+  <a class="nav-link" href="/nursinghome/admin/nursings">Aides soignantes</a>
+  <a class="nav-link" href="/nursinghome/admin/tasks">Les tâches</a>
+  <a class="nav-link" href="/nursinghome/admin/tasksNotDid">Les tâches non faite</a>
+  <a class="nav-link" href="/nursinghome/admin">Menu</a>
+  
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
 
