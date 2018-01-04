@@ -19,6 +19,8 @@ $router->get('/admin/nursings', "\AdminController::nursingsAction");
 $router->post('/admin/nursings', "\AdminController::nursingsPostsAction");
 $router->get('/admin/tasks', "\AdminController::tasksAction");
 $router->post('/admin/tasks', "\AdminController::tasksPostsAction");
+$router->get('/admin/reset', "\AdminController::resetAction");
+$router->post('/admin/reset', "\AdminController::resetPostsAction");
 $router->get('/admin/tasksNotDid', "\AdminController::didAction");
 
 $router->run();
