@@ -2,8 +2,8 @@ $('document').ready(function () {
 
     new WOW().init() // init animations
 
-    var URL_MAC      = "http://localhost:8888/nursinghome/"
-    var URL_WINDOWS  = "http://localhost/nursinghome/"
+    var URL  = "http://localhost:8888/nursinghome/" // MAC
+    // var URL  = "http://localhost/nursinghome/" // WINDOWS
 
     var form = $("#formReset")
     var msg = $("#msg-container")
@@ -13,7 +13,7 @@ $('document').ready(function () {
     form.submit(function (event) {
         event.preventDefault()
 
-        $.post(URL_WINDOWS  + "admin/reset", function (data, status) {
+        $.post(URL  + "admin/reset", function (data, status) {
             var data = JSON.parse(data)
             console.log(data)
             msg.text(data.message)
