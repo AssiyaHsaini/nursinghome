@@ -236,4 +236,12 @@ class QueriesController
         $duree=(strtotime($expirationdate)-strtotime(date('Y-m-d'))) / 86400;
         return $duree;
     }
+
+    public function reset()
+    {
+        $db = PDOController::getInstance();
+        
+        $req = $db->prepare("TRUNCATE TABLE `executedtask` ");
+        $req->execute([]);
+    }
 }

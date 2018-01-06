@@ -180,4 +180,23 @@ class AdminController {
         
     }
 
+    static function resetAction()
+    {
+          ValidatorController::checkSession();
+         $view = new View(__DIR__ . "/../views/admin/reset.view.php", []);
+         $view->render();
+                 
+    }
+
+    static function resetPostsAction()
+    {
+         ValidatorController::checkSession();
+         $q = new QueriesController();
+         $q->reset();
+         $tab["message"]= "Toutes les tâches ont été effacé";
+         $tab["error"]= 0;
+         echo json_encode ($tab);
+
+    }
+
 }
