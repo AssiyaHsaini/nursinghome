@@ -11,10 +11,30 @@ require_once(__ROOT__ .'/app/views/common/head.php');
     <span class="navbar-toggler-icon"></span>
   </button>
 
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+        <li class="nav-item">
+            <a class="nav-link" href="/nursinghome/admin/">Accueil</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/nursinghome/admin/nursings">Aides soignantes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/nursinghome/admin/tasks">Tâches</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/nursinghome/admin/tasksNotDid">Tâches non effectuées</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/nursinghome/admin/reset">Réinitialisation des tâches</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- <a class="nav-link" href="/nursinghome/admin/">Menu</a>  
   <a class="nav-link" href="/nursinghome/admin/nursings">Aides soignantes</a>
-  <a class="nav-link" href="/nursinghome/admin/tasks">Les tâches</a>
-  <a class="nav-link" href="/nursinghome/admin/tasksNotDid">Les tâches non faite</a>
-  <a class="nav-link" href="/nursinghome/admin/">Menu</a>
+  <a class="nav-link" href="/nursinghome/admin/tasks">Tâches</a>
+  <a class="nav-link" href="/nursinghome/admin/tasksNotDid">Tâches non effectuées</a> -->
   
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">

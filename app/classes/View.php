@@ -24,7 +24,7 @@ class View {
             {
                 foreach ($this->data['errors'] as $message)
                 {
-                    echo "<div class='alert alert-danger' role='alert'>" . $message . "</div> ";
+                    echo "<div class='alert alert-danger wow fadeInDown' role='alert'>" . $message . "</div> ";
                 }
             }
             else 

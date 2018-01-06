@@ -193,10 +193,9 @@ class AdminController {
          ValidatorController::checkSession();
          $q = new QueriesController();
          $q->reset();
-         $tab["message"]= "Toutes les tâches ont été effacé";
+         $tab["message"]= "Toutes les tâches ont été effacés";
          $tab["error"]= 0;
          echo json_encode ($tab);
-
     }
 
 }

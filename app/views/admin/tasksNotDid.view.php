@@ -1,22 +1,22 @@
 <?php
-require_once(__DIR__ .'/../common/header-cadre.php');
+    require_once(__DIR__ .'/../common/header-cadre.php');
 ?>
-
-<!-- <?php if (isset($this->data['errors'])) { ?>
-    <div class="alert">
-        <?php // echo $this->data['error'] ?>
-        <?php var_dump($this->data['errors']) ?>
-    </div>
-<?php } ?> -->
 
 <?php $this->showErrors(); ?>
 
-<h1> Taches non faite </h1>
+<div class="container wow bounceInLeft">
+    <div class="row head-row align-items-center">
+        <h2>Tâches non réalisées</h2>
+    </div>
+
+    <div class="row">
+
 
 
 <table class="table">
   <thead class="thead-dark">
     <tr>
+      <th scope="col"> ID </th>
       <th scope="col"> Prénom </th>
       <th scope="col"> Nom </th>
       <th scope="col"> Tâche </th> 
@@ -35,7 +35,8 @@ if (isset($this->data['tasks']) && count($this->data['tasks']) > 0 ) {
     ?>
        
         <tr>
-        <th scope="row"> <?= $task['lastname']; ?> </th>
+        <th scope="row"> <?= $task['id_person']; ?> </th>
+        <td> <?= $task['lastname']; ?> </td>
         <td> <?= $task['firstname']; ?> </td>
         <td> <?= $task['name']; ?> </td>        
         <td>  <?= $task['id_room']; ?> </td>
@@ -45,4 +46,12 @@ if (isset($this->data['tasks']) && count($this->data['tasks']) > 0 ) {
     <?php
     }
 }
+?>
+</div>
+
+
+</div>
+
+<?php
+    require_once(__DIR__ .'/../common/footer.php');
 ?>
