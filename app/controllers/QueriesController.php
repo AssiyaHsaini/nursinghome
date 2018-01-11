@@ -61,6 +61,29 @@ class QueriesController
         return $response;
      }
 
+     public static function checkUniqueEmail($email)
+     {
+        $isUnique= true;
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT email FROM persons WHERE email=?');
+        $req->execute([$email]);
+        $data = $req->fetch();
+
+
+
+        if ($data!=false)
+            return true;
+        
+        return false;
+        
+        // foreach ($data as $e)
+        // {
+        //     if($e==$email)
+        //         $isUnique= false;
+        // }
+        // return $isUnique;
+     }
+
 
     public function getRole($email,$code)
     {
