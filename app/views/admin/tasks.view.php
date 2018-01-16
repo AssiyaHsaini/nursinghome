@@ -22,6 +22,8 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
        <h1> <? echo " - " . $nurse['lastname'] . " " .$nurse['firstname'] . ": "  ?> </h1>
        <tr>
        <th scope="col"> Tâche </th>
+       <th scope="col"> Nom service </th>              
+       <th scope="col"> Nom salle </th>       
        <th scope="col"> Description </th>
        <th scope="col">Date limite </th>
        <th scope="col"> bouton</th> 
@@ -29,6 +31,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
        </thead>
        <tbody>
     <?php
+
  
     foreach($this->data['tasks'][$nurse['id']] as $nursingTasks)
             {
@@ -36,6 +39,8 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                 ?>
                 <tr>
                     <th scope="row"> <?= $nursingTasks['name'] ?> 
+                    <td> <?=  $nursingTasks['serviceName'] ?> </td>                                                                                     
+                    <td> <?=  $nursingTasks['roomName'] ?> </td>
                     <td> <?=  $nursingTasks['description'] ?> </td>
                     <td> <?= $nursingTasks['expirationdate'] ?> </td>                   
 
@@ -50,6 +55,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                     </td>
                 <tr>
                 <?php
+             
             }  
     }
 }
@@ -95,6 +101,8 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
        
 
        <h1>Ajouter tâche</h1> 
+
+
 
        <form action="" method="POST">
        <div class="input-group mb-3">
@@ -146,6 +154,38 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                 <label class="input-group-text" for="personId">Options</label>
                 </div>
                 </div>
+
+                <div class="input-group mb-3">
+                   
+                   <select name="tasks" id="tasks" class="custom-select">
+                   <?php foreach($this->data['rooms'] as $tasks)
+                   { 
+                   ?>
+                           <option value= "<?= $tasks['id'] ?>"> <? echo $tasks['roomName'] . " - " . $tasks['id'] ; ?> </option>
+                   <?php    
+                   }
+                   ?>
+                   </select>
+                   <div class="input-group-append">
+               <label class="input-group-text" for="personId">Options</label>
+               </div>
+               </div>
+
+               <div class="input-group mb-3">
+                   
+                   <select name="tasks" id="tasks" class="custom-select">
+                   <?php foreach($this->data['rooms'] as $tasks)
+                   { 
+                   ?>
+                           <option value= "<?= $tasks['id'] ?>"> <? echo $tasks['serviceName'] . " - " . $tasks['id'] ; ?> </option>
+                   <?php    
+                   }
+                   ?>
+                   </select>
+                   <div class="input-group-append">
+               <label class="input-group-text" for="personId">Options</label>
+               </div>
+               </div>
 
                 <div class="input-group mb-3">
 

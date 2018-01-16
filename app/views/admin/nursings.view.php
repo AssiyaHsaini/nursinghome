@@ -40,8 +40,6 @@ require_once(__DIR__ .'/../common/header-cadre.php');
                             <form action="" method="POST">
                                 <input type="hidden" name="postMethod" value="delete"> 
                                 <input type="hidden" name="personId" value="<? echo $nursing['id'];?>"> 
-                                <!-- <input type="submit" value="Supprimer" /> 
-                                <i class="material-icons">clear</i> -->
                                 <button type="submit" class=" close close-icon" aria-label="Close">
                                     <i class="material-icons">clear</i>
                                 </button>             
@@ -94,6 +92,7 @@ require_once(__DIR__ .'/../common/header-cadre.php');
 </form>
 <br>
 </div>
+
 
 <?php
 require_once(__DIR__ .'/../common/footer.php');
