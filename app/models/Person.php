@@ -12,12 +12,12 @@ class Person
     private $_role;
     private $_email;
     
-    public function __construct($lastname,$firstname,$role,$email)
+    public function __construct($lastname,$firstname,$role,$email, $code)
     {
        
         $this->_lastname=$lastname;
         $this->_firstname=$firstname;
-        $this->_code= "000";
+        $this->_code= $code;
         $this->_role=$role;
         $this->_email=$email;
     }

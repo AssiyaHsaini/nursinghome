@@ -6,6 +6,7 @@ use App\View;
 use App\ValidatorController;
 use App\QueriesController;
 use App\Person;
+use App\EmailController;
 
 
 class AdminController {
@@ -66,20 +67,22 @@ class AdminController {
         
             if ($validator->isValid())
             {
+                // Generation du code de l'aide soignante
+                $newCode = EmailController::generateCode();
 
-                $person= new Person($_POST['lastname'],$_POST['firstname'],$_POST['role'],$_POST['email']);
+                $person= new Person($_POST['lastname'],$_POST['firstname'],$_POST['role'],$_POST['email'], $newCode);
                 $res = $q->addNursing($person);
-                $nursings = $q->getNursings();     
+                $nursings = $q->getNursings();
+                
+                // Envoi du code par email
+                EmailController::sendCode($_POST['email'], $newCode);
 
                 if ($res==false)
                 {
-                    //$view = new View(__DIR__ . "/../views/admin/nursings.view.php", ['nursings' => $nursings]);
                     $data = ['nursings' => $nursings];
-                    
                 }
                 else 
                 {
-                    //$view = new View(__DIR__ . "/../views/admin/nursings.view.php", ['nursings' => $nursings, "errors" => "L'ajout a échoué"]);
                     $data =['nursings' => $nursings, "errors" => "L'ajout a échoué"];
                 }
                 
@@ -90,12 +93,9 @@ class AdminController {
                 
             }
         }
+
         $view = new View(__DIR__ . "/../views/admin/nursings.view.php", $data);
         $view->render();
-        //self::sendMessage($_POST['email'],"blabal");
-
-
-
     }
 
     static function tasksAction()
@@ -137,8 +137,6 @@ class AdminController {
         ValidatorController::checkSession();
         $q = new QueriesController();
 
-        //var_dump($_POST);
-        //die();
         if ($_POST['postMethod'] == "add")
         {
              $q->addTask($_POST['personId'],$_POST['rooms'],$_POST['tasks'],$_POST['date']);
@@ -159,8 +157,7 @@ class AdminController {
         ValidatorController::checkSession();
         $q = new QueriesController();
         $date =  $q->getDaysExpiration($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
-        //var_dump($date);
-        //die();
+
         if ($date<0) 
         {
             $tasks = $q->getTasks();
