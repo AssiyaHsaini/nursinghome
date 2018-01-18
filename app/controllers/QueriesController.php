@@ -61,6 +61,28 @@ class QueriesController
         return $response;
      }
 
+     public static function checkUniqueEmail($email)
+     {
+        $isUnique= true;
+        $db = PDOController::getInstance();
+        $req = $db->prepare('SELECT email FROM persons WHERE email=?');
+        $req->execute([$email]);
+        $data = $req->fetch();
+     
+        
+        if ($data!=false)
+            return true;
+        
+        return false;
+        
+        // foreach ($data as $e)
+        // {
+        //     if($e==$email)
+        //         $isUnique= false;
+        // }
+        // return $isUnique;
+     }
+
 
     public function getRole($email,$code)
     {
@@ -138,8 +160,10 @@ class QueriesController
     public function getTasksNursing($id)
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('SELECT executedtask.id_room, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
+        $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
         FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        JOIN rooms ON executedtask.id_room=rooms.id
+        JOIN services ON rooms.service_id=services.id
         WHERE executedtask.id_person=?');
         $req->execute([$id]);
 
@@ -175,9 +199,11 @@ class QueriesController
     public function getAllRooms()
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('SELECT roomtypes.name, rooms.id
-         FROM rooms JOIN roomtypes ON roomtypes.id= rooms.type_id');
+        $req = $db->prepare('SELECT roomtypes.name, rooms.id, rooms.name AS roomName, services.name AS serviceName
+         FROM rooms JOIN roomtypes ON roomtypes.id= rooms.type_id
+         JOIN services ON services.id=rooms.service_id');
         $req->execute([]);
+    
         return $req->fetchAll();
     }
 
@@ -244,4 +270,5 @@ class QueriesController
         $req = $db->prepare("TRUNCATE TABLE `executedtask` ");
         $req->execute([]);
     }
+
 }

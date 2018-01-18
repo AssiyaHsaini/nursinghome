@@ -3,6 +3,8 @@
 namespace App;
 
 use App\View;
+use App\QueriesController;
+
 
 class ValidatorController {
 
@@ -209,6 +211,7 @@ class ValidatorController {
 	public function isValid()
 	{
 		return empty($this->errors);
+		
 	}
 
 	/*
@@ -217,6 +220,15 @@ class ValidatorController {
 	public function getErrors()
 	{
 		return $this->errors;
+	}
+
+	public function isUniqueEmail($field, $errorMsg)
+	{
+
+		if (QueriesController::checkUniqueEmail($this->getField($field)))
+		{
+			$this->errors[$field] = $errorMsg;
+		}
 	}
 
 

@@ -61,10 +61,12 @@ class AdminController {
             $validator->isNotEmpty('firstname', "Veuillez remplir le champ");
             $validator->isEmail('email', "Veuillez remplir le champ email");     
             $validator->isNotEmpty('role', "Veuillez remplir le champ email");
+            $validator->isUniqueEmail('email', "Veuillez changer le champ email");
 
-    
+        
             if ($validator->isValid())
             {
+
                 $person= new Person($_POST['lastname'],$_POST['firstname'],$_POST['role'],$_POST['email']);
                 $res = $q->addNursing($person);
                 $nursings = $q->getNursings();     
@@ -90,6 +92,8 @@ class AdminController {
         }
         $view = new View(__DIR__ . "/../views/admin/nursings.view.php", $data);
         $view->render();
+        //self::sendMessage($_POST['email'],"blabal");
+
 
 
     }
@@ -102,6 +106,7 @@ class AdminController {
         $nursingsw = $q->getNursingsWithTask();
         $allTasks= $q->getAllTasks();
         $allRooms=$q->getAllRooms();
+    
         $tasks = [];
 
         foreach ($nursingsw as $nurse)
@@ -197,5 +202,13 @@ class AdminController {
          $tab["error"]= 0;
          echo json_encode ($tab);
     }
+
+
+    
+
+    
+
+
+
 
 }

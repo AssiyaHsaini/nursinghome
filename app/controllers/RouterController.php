@@ -5,22 +5,28 @@ namespace App;
 use App\Route;
 
 /**
- * RouteController
+ * Cette classe a pour but de gérer l'éxécution d'un certain code suivant l'URL qui est tapée par l'utilisateur
 **/
 class RouterController {
 
-    private $url;
-    private $routes = [];
+    private $url;   // Contiendra l'URL sur laquelle on souhaite se rendre
+    private $routes = [];   // Contiendra la liste des routes
+
 
     public function __construct($url) {
         $this->url = $url;
     }
 
+    // Création des fonctions correspondantes aux différentes méthodes HTTP (GET, POST) 
+    
+    //get: Cette méthode prend deux paramètres -> L'URL à capturer, et a méthode à appeller lorsque cette URL est capturé 
+
     public function get($path, $callable) {
         $route = new Route($path, $callable);
-        $this->routes['GET'][] = $route;
+        $this->routes['GET'][] = $route; 
     }
 
+    //post: Cette méthode prend deux paramètres -> L'URL à capturer, et a méthode à appeller lorsque cette URL est capturé 
     public function post($path, $callable) {
         $route = new Route($path, $callable);
         $this->routes['POST'][] = $route;
