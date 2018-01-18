@@ -2,10 +2,14 @@
 
 namespace App;
 
+/**
+ * Class qui reprensente les vue de notre application 
+ */
+
 class View {
 
-    private $path;
-    private $data = [];
+    private $path; // chemin de la vue 
+    private $data = []; // données de la vue 
 
     public function __construct($path, $data) {
         $this->path = $path;
@@ -16,6 +20,7 @@ class View {
         include_once $this->path;
     }
 
+    //affiche les erreurs rencontrées dans la vue
     public function showErrors()
     {
         if (isset($this->data['errors']))

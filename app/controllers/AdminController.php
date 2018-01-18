@@ -8,6 +8,9 @@ use App\QueriesController;
 use App\Person;
 
 
+/**
+ * Cette classe est un contrôleur qui s'occupe 
+ */
 class AdminController {
 
     public static $error;
@@ -120,17 +123,6 @@ class AdminController {
         $view->render();
     }
     
-
-    /*static function tasksAction()
-    {
-        $q = new QueriesController();
-        $nursingsw = $q->getNursingsWithTask();
-        $view = new View(__DIR__ . "/../views/admin/tasks.view.php", ['nursingsw' => $nursingsw]);
-        $view->render();
-
-        
-        
-    }*/
 
     static function tasksPostsAction()
     {

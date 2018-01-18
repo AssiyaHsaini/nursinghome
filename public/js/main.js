@@ -11,8 +11,10 @@ $('document').ready(function () {
 
 
     form.submit(function (event) {
-        event.preventDefault()
+        event.preventDefault() // désactive le rafraichissement de la page 
 
+        //permet d'envoyer des données
+        //"function" indique une fonction à exécuter lorsque la méthode est terminée. "data" contient les données résultant de la demande ; "status" contient l'état de la demande
         $.post(URL  + "admin/reset", function (data, status) {
             var data = JSON.parse(data)
             console.log(data)

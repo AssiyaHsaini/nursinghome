@@ -2,13 +2,15 @@
 
 session_start();
 
+// s'occupe de l'autoloader
 require "vendor/autoload.php";
 
 define('__ROOT__', __DIR__); 
 
 use App\RouterController;
 
-$router = new RouterController($_GET['url']); // création d'un routeur
+// création d'un routeur
+$router = new RouterController($_GET['url']); 
  
 $router->get('/', "\AuthenticationController::indexAction");
 $router->post('/', "\AuthenticationController::indexPostAction");
