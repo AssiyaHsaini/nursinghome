@@ -39,8 +39,6 @@ class RouterController {
             }
         }
 
-        // $view = new View("/../views/common/404.php", []);
-        // $view->render();
     }
 
 }
