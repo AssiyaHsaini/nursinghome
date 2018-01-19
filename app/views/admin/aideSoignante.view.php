@@ -84,7 +84,7 @@ require_once(__DIR__ .'/../common/header-aide.php');
   </tbody>
 </table>
 
-
+<!-- 
 
 <h1 class=""> Les tâches communes </h1>
 
@@ -144,4 +144,4 @@ if (isset($this->data['common']) && count($this->data['common']) > 0 ) {
 
 
 
-      
+       -->

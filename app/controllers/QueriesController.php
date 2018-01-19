@@ -169,8 +169,7 @@ class QueriesController
     {
         $db = PDOController::getInstance();
         $req = $db->prepare('SELECT DISTINCT persons.lastname, persons.firstname, persons.email, persons.role , persons.id
-        FROM persons JOIN executedtask ON persons.id=executedtask.id_person
-       ');
+        FROM persons JOIN executedtask ON persons.id=executedtask.id_person');
         $req->execute();
         return $req->fetchAll();
     } 
@@ -181,12 +180,19 @@ class QueriesController
     public function getTasksNursing($id)
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task, executedtask.id_service
-        FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        $req = $db->prepare('SELECT executedtask.id_person,executedtask.id_room,executedtask.expirationdate,executedtask.did,executedtask.id_task,executedtask.id_service,persons.lastname,persons.firstname,rooms.name AS roomName, tasks.name AS taskName ,tasks.description,services.name AS serviceName 
+        FROM executedtask  JOIN persons ON executedtask.id_person=persons.id
         JOIN rooms ON executedtask.id_room=rooms.id
-        JOIN services ON rooms.service_id=services.id
+        JOIN tasks ON executedtask.id_task=tasks.id
+        JOIN services ON executedtask.id_service=services.id
         WHERE executedtask.id_person=?');
         $req->execute([$id]);
+        // $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task, executedtask.id_service
+        // FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        // JOIN rooms ON executedtask.id_room=rooms.id
+        // JOIN services ON rooms.service_id=services.id
+        // WHERE executedtask.id_person=?');
+        // $req->execute([$id]);
 
         return $req->fetchAll();
     }

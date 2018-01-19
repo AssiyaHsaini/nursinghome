@@ -15,6 +15,8 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
 
     foreach($this->data['nursingsw'] as $nurse)
     {
+
+        
     ?>  
        
        <table class="table">
@@ -33,12 +35,12 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
     <?php
 
     //  echo "<pre>";
-    //  var_dump($this->data['tasks'][$nurse['id']]);
+    //   var_dump($this->data['tasks'][$nurse['id']]);
     foreach($this->data['tasks'][$nurse['id']] as $nursingTasks)
             {            
                 ?>
                 <tr>
-                    <th scope="row"> <?= $nursingTasks['name'] ?> 
+                    <th scope="row"> <?= $nursingTasks['taskName'] ?> 
                     <td> <?=  $nursingTasks['serviceName'] ?> </td>
                      <td> <?=  $nursingTasks['roomName'] ?> </td>
                     <td> <?=  $nursingTasks['description'] ?> </td>
@@ -47,7 +49,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                     <td>
                         <form action="" method="POST">
                         <input type="hidden" name="postMethod" value="delete"> 
-                        <input type="hidden" name="personId" value="<? echo $nurse['id']  ;?>"> 
+                        <input type="hidden" name="personId" value="<? echo $nursingTasks['id_person']  ;?>"> 
                         <input type="hidden" name="taskId" value="<? echo $nursingTasks['id_task'];?>"> 
                         <input type="hidden" name="roomId" value="<? echo $nursingTasks['id_room'];?>">
                         <input type="hidden" name="serviceId" value="<? echo $nursingTasks['id_service'];?>">                        
@@ -141,22 +143,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                </div>
                </div>
 
-                <div class="input-group mb-3">
 
-                    <select name="rooms" id="rooms" class="custom-select">
-
-                    <?php foreach($this->data['rooms'] as $rooms)
-                    { 
-                    ?>
-                            <option value= "<?= $rooms['id'] ?>">  <? echo $rooms['name'] . " - " . $rooms['id'] ; ?> </option>
-                    <?php    
-                    }
-                    ?>
-                    </select>
-                    <div class="input-group-append">
-                <label class="input-group-text" for="personId">Type Salle</label>
-                </div>
-                </div>
 
 
 

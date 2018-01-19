@@ -117,6 +117,7 @@ class AdminController {
         foreach ($nursingsw as $nurse)
         {
             $tasks[$nurse['id']] = $q->getTasksNursing($nurse['id']);
+    
         }
 
         $view = new View(__DIR__ . "/../views/admin/tasks.view.php", ['service' => $allService ,'nursingsw' => $nursingsw, 'tasks' => $tasks, 'allTasks' => $allTasks, 'rooms' => $allRooms, 'nursings' => $nursings]);
@@ -131,7 +132,7 @@ class AdminController {
 
         if ($_POST['postMethod'] == "add")
         {
-             $q->addTask($_POST['personId'],$_POST['rooms'],$_POST['tasks'],$_POST['date'],$_POST['service']);
+             $q->addTask($_POST['personId'],$_POST['roomName'],$_POST['tasks'],$_POST['date'],$_POST['service']);
              
              // recuperer le post de service et room 
              // et renvoyer dans la vue
