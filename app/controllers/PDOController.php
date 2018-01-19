@@ -16,6 +16,7 @@ class PDOController
         try
         {
             self::$instance = new \PDO("mysql:dbname=nursinghome;host=localhost",'root','root');
+            // self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }
        catch(Exception $e)
        {

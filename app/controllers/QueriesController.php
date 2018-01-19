@@ -181,7 +181,7 @@ class QueriesController
     public function getTasksNursing($id)
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
+        $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task, executedtask.id_service
         FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
         JOIN rooms ON executedtask.id_room=rooms.id
         JOIN services ON rooms.service_id=services.id
@@ -194,18 +194,19 @@ class QueriesController
     /*
         Fonction qui affecte une tâche à une nurse.
     */
-    public function addTask($person,$room,$task,$date)
+    public function addTask($person,$room,$task,$date,$service)
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('INSERT INTO executedtask(id_person,id_room,expirationdate,did,id_task)
+        $req = $db->prepare('INSERT INTO executedtask(id_person,id_room,expirationdate,did,id_task,id_service)
         VALUES
-        (?,?,?,?,?)');
+        (?,?,?,?,?,?)');
         $req->execute([
             $person,
             $room,
             $date,
             0,
             $task,
+            $service
         ]);;
         return $req->fetchAll();
        
@@ -240,17 +241,17 @@ class QueriesController
     /*
         Fonction qui supprime une tâches affectées à une nurse.
     */
-    public function deleteTask($id_person, $id_tasks, $id_rooms)
+    public function deleteTask($id_person, $id_tasks, $id_rooms, $id_service)
     {
         $db = PDOController::getInstance();
-        $req = $db->prepare('DELETE FROM executedtask WHERE id_person=? AND id_task= ? AND id_room= ?');
+        $req = $db->prepare('DELETE FROM executedtask WHERE id_person=? AND id_task= ? AND id_room= ? AND id_service= ?');
         $req->execute([
             $id_person,
             $id_tasks,
             $id_rooms,
-        ]);;
+            $id_service
+        ]);
         return $req->fetchAll();
-       
     }
 
     /*
@@ -313,6 +314,34 @@ class QueriesController
         
         $req = $db->prepare("TRUNCATE TABLE `executedtask` ");
         $req->execute([]);
+    }
+
+    /*
+        Fonction qui récupère les tâches affectées dans les salles communes.
+    */
+    public function getCommonTasks()
+    {
+        $db = PDOController::getInstance();
+        
+        $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
+        FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        JOIN rooms ON executedtask.id_room=rooms.id     
+        JOIN services ON rooms.service_id=services.id
+        JOIN roomtypes ON roomtypes.id=rooms.type_id  
+        WHERE roomtypes.name=?');
+        $req->execute(['salle_commune']);
+        return $req->fetchAll();
+
+    }
+
+    public function getAllService()
+    {
+        $db = PDOController::getInstance();
+        
+        $req = $db->prepare('SELECT * FROM services');
+        $req->execute([]);
+        return $req->fetchAll();
+                
     }
 
 }

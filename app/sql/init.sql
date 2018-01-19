@@ -57,9 +57,11 @@ CREATE TABLE executedtask
     expirationdate DATE NOT NULL ,
     did BOOLEAN NOT NULL, 
     id_task INT UNSIGNED NOT NULL ,
-    PRIMARY KEY(id_person,id_room,id_task),
+    id_service INT UNSIGNED NOT NULL,
+    PRIMARY KEY(id_person,id_room,id_task,id_service),
     CONSTRAINT persontask FOREIGN KEY (id_person) REFERENCES persons(id) ON DELETE CASCADE,
     CONSTRAINT roomtask FOREIGN KEY (id_room) REFERENCES rooms(id) ON DELETE CASCADE,
+    CONSTRAINT servicetask FOREIGN KEY (id_service) REFERENCES services(id) ON DELETE CASCADE,    
     CONSTRAINT task FOREIGN KEY (id_task) REFERENCES tasks(id) ON DELETE CASCADE
 );
 

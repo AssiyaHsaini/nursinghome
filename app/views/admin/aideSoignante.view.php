@@ -29,6 +29,8 @@ require_once(__DIR__ .'/../common/header-aide.php');
 
         if (isset($this->data['tasks']) && count($this->data['tasks']) > 0 ) {
 
+
+        
             foreach($this->data['tasks'] as $task)
             {
             ?>
@@ -81,6 +83,62 @@ require_once(__DIR__ .'/../common/header-aide.php');
 
   </tbody>
 </table>
+
+
+
+<h1 class=""> Les tâches communes </h1>
+
+
+<div class="container center">
+</div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Service</th>
+      <th scope="col">Pièce</th>
+      <th scope="col">Tâche</th>
+      <th scope="col">Description</th>
+      <th scope="col">Date limite</th>
+      <th scope="col"></th>
+      
+    </tr>
+  </thead>
+  <tbody>
+
+<?php
+
+if (isset($this->data['common']) && count($this->data['common']) > 0 ) {
+
+    // var_dump($this->data['common']);
+    // die();
+
+    foreach($this->data['common'] as $common)
+        {
+            ?>
+
+            <tr>
+                    <th scope="row"><?= $common['serviceName']; ?></th>
+                    <td><?= $common['id_room']; ?></td>
+                    <td><?= $common['name']; ?></td>
+                    <td><?= $common['description']; ?></td>
+                    <td><?= $common['expirationdate']; ?></td>
+                    
+        
+        
+            </tr>
+
+        <? } ?>
+        
+        
+        
+        
+ </tbody>
+</table>
+
+        
+        
+        <? } ?> 
+
 
 
 

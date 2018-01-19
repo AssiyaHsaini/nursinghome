@@ -109,6 +109,8 @@ class AdminController {
         $nursingsw = $q->getNursingsWithTask();
         $allTasks= $q->getAllTasks();
         $allRooms=$q->getAllRooms();
+        $allService=$q->getAllService();
+        
     
         $tasks = [];
 
@@ -117,9 +119,7 @@ class AdminController {
             $tasks[$nurse['id']] = $q->getTasksNursing($nurse['id']);
         }
 
-
-        
-        $view = new View(__DIR__ . "/../views/admin/tasks.view.php", ['nursingsw' => $nursingsw, 'tasks' => $tasks, 'allTasks' => $allTasks, 'rooms' => $allRooms, 'nursings' => $nursings]);
+        $view = new View(__DIR__ . "/../views/admin/tasks.view.php", ['service' => $allService ,'nursingsw' => $nursingsw, 'tasks' => $tasks, 'allTasks' => $allTasks, 'rooms' => $allRooms, 'nursings' => $nursings]);
         $view->render();
     }
     
@@ -131,12 +131,15 @@ class AdminController {
 
         if ($_POST['postMethod'] == "add")
         {
-             $q->addTask($_POST['personId'],$_POST['rooms'],$_POST['tasks'],$_POST['date']);
+             $q->addTask($_POST['personId'],$_POST['rooms'],$_POST['tasks'],$_POST['date'],$_POST['service']);
+             
+             // recuperer le post de service et room 
+             // et renvoyer dans la vue
              self::tasksAction();
         }
         if ($_POST['postMethod'] == "delete")
         {
-            $q->deleteTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
+            $q->deleteTask($_POST['personId'],$_POST['taskId'],$_POST['roomId'],$_POST['serviceId']);
             self::tasksAction();
         }
 
@@ -153,13 +156,17 @@ class AdminController {
         if ($date<0) 
         {
             $tasks = $q->getTasks();
-            $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "errors" => "Le delai de cette tache est expiré"]); 
+            $commonTasks = $q->getCommonTasks();
+            $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, 'common' => $commonTasks, "errors" => "Le delai de cette tache est expiré"]); 
         }
         else {
             $q->validerTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
             $tasks = $q->getTasks();
-            $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "message" => "Tâche faite"]); 
+            $commonTasks = $q->getCommonTasks();
+            $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks,'common' => $commonTasks, "message" => "Tâche faite"]); 
         }
+
+    
         $view->render();
     }
 
