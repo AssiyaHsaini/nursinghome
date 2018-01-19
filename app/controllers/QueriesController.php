@@ -7,6 +7,10 @@ use App\Person;
 use App\ValidatorController;
 use App\PDOController;
 
+/**
+ * Contrôleur qui s'occupe des requêtes sur notre BDD. Joue le rôle d'un DAO.
+ */
+
 class QueriesController
 {
 
@@ -29,10 +33,13 @@ class QueriesController
 		return $this->errors;
 	}
 
+    /*
+        Fonction qui vérifie que l'utilisateur existe. S'il existe, on lui crée une session.
+    */
     public function login($email,$code)
     {
         $response= ["error"=>false, "message"=>""];
-        $db = PDOController::getInstance();
+        $db = PDOController::getInstance(); // récupération de la connexion a notre base.
         $req = $db->prepare('SELECT * FROM persons WHERE email =?');
         $req->execute([$email]);
         $data = $req->fetch();
@@ -61,6 +68,9 @@ class QueriesController
         return $response;
      }
 
+    /*
+        Fonction qui vérifie que l'email est unique. Cette méthode est utilisé pour vérifier que la cadre santé n'inscrit pas des emails identiques dans la base.
+    */
      public static function checkUniqueEmail($email)
      {
         $isUnique= true;
@@ -75,15 +85,11 @@ class QueriesController
         
         return false;
         
-        // foreach ($data as $e)
-        // {
-        //     if($e==$email)
-        //         $isUnique= false;
-        // }
-        // return $isUnique;
      }
 
-
+    /*
+        Fonction qui retourne que le role de l'utilisateur. 
+    */
     public function getRole($email,$code)
     {
         $db = PDOController::getInstance();
@@ -91,9 +97,11 @@ class QueriesController
         $req->execute([$email],[$code]);
         $data = $req->fetch();
         return $data;
-        //return $_SESSION["role"];
     }
 
+    /*
+        Fonction qui retourne la liste des tâches affectées à un utilisateur.
+    */
     public function getTasks()
     {
         $db = PDOController::getInstance();
@@ -106,11 +114,15 @@ class QueriesController
         $req->execute([$_SESSION["id"]]);
         $tasks = $req->fetchAll();
         foreach ($tasks as $key => $task) {
+            //on ajoute à chaque tâche le nombre de jour restant à l'index 'days'.
             $tasks[$key]['days'] = $this->getDaysExpiration($_SESSION['id'],$task['id_task'],$task['id_room']);
         }
         return $tasks;
     }
     
+    /*
+        Fonction qui retourne la liste des nurses.
+    */  
     public function getNursings()
     {
         $db = PDOController::getInstance();
@@ -121,6 +133,9 @@ class QueriesController
         return $req->fetchAll();
     }
 
+    /*
+        Fonction qui ajoute des nurses dans la table 'persons'.
+    */
     public function addNursing(Person $person)
     {
         $db = PDOController::getInstance();
@@ -137,16 +152,19 @@ class QueriesController
         return $req->fetch();
     }
 
+    /*
+        Fonction qui supprime la nurses dont l'id est $id de la table 'persons'.
+    */
     public function deleteNursing($id)
     {
         $db = PDOController::getInstance();
         $req = $db->prepare('DELETE FROM persons WHERE id=?');
         $req->execute([$id]);
-        //$donnees = $req->fetch();
-        //var_dump($donnees);
-        //return $donnees;
     }
 
+    /*
+        Fonction qui retourne la liste des nurses qui ont des tâches.
+    */   
     public function getNursingsWithTask()
     {
         $db = PDOController::getInstance();
@@ -157,6 +175,9 @@ class QueriesController
         return $req->fetchAll();
     } 
 
+    /*
+        Fonction qui retourne la liste des tâches d'une nurse dont l'id est $id.
+    */
     public function getTasksNursing($id)
     {
         $db = PDOController::getInstance();
@@ -170,6 +191,9 @@ class QueriesController
         return $req->fetchAll();
     }
 
+    /*
+        Fonction qui affecte une tâche à une nurse.
+    */
     public function addTask($person,$room,$task,$date)
     {
         $db = PDOController::getInstance();
@@ -187,6 +211,9 @@ class QueriesController
        
     }
 
+    /*
+        Fonction qui retourne la liste des tâches.
+    */
     public function getAllTasks()
     {
         $db = PDOController::getInstance();
@@ -195,7 +222,9 @@ class QueriesController
         return $req->fetchAll();
     }
 
-
+    /*
+        Fonction qui retourne la liste des rooms.
+    */
     public function getAllRooms()
     {
         $db = PDOController::getInstance();
@@ -208,6 +237,9 @@ class QueriesController
     }
 
 
+    /*
+        Fonction qui supprime une tâches affectées à une nurse.
+    */
     public function deleteTask($id_person, $id_tasks, $id_rooms)
     {
         $db = PDOController::getInstance();
@@ -221,6 +253,9 @@ class QueriesController
        
     }
 
+    /*
+        Fonction qui permet à une nurse de valider une tâche.
+    */
     public function validerTask($id_person,$id_task,$id_room)
     {
         $db = PDOController::getInstance();
@@ -234,6 +269,9 @@ class QueriesController
         ]);
     }
 
+    /*
+        Fonction qui retourne la liste des tâches non faites.
+    */
     public function getTasksNotDid()
     {
         $db = PDOController::getInstance();
@@ -245,6 +283,9 @@ class QueriesController
         return $req->fetchAll();
     }
 
+    /*
+        Fonction qui calcule le nombre de jour restant entre la date actuelle et la date limite de la tâche .
+    */
     public function getDaysExpiration($id_person,$id_task,$id_room)
     {
 
@@ -263,6 +304,9 @@ class QueriesController
         return $duree;
     }
 
+    /*
+        Fonction qui supprime tout les elements de la table 'executedtask'.
+    */
     public function reset()
     {
         $db = PDOController::getInstance();

@@ -54,54 +54,6 @@ class ValidatorController {
 
 	}
 
-	/*
-		Verifie si le numéro de telephone respecte la norme française
-	*/
-	public function isPhoneNumber($field, $errorMsg)
-	{
-		$motif ='`^0[1-9][0-9]{8}$`';
-
-		if(!preg_match($motif,$this->getField($field)))
-		{
-			$this->errors[$field] = $errorMsg;
-			$this->isError();
-		}
-	}
-
-	/*
-		Verifie la date
-	*/
-	public function isDate($field, $errorMsg)
-	{
-		if ($this->getField($field))
-		{	
-			$date_now = date('d-m-Y');
-			$date_tab = explode('-', $this->getField($field));
-
-			if (!is_numeric($date_tab[0]) || !is_numeric($date_tab[1]) || !is_numeric($date_tab[2]))
-			{
-					$this->errors[$field] = $errorMsg;
-			}
-			else
-			{
-				if (!checkdate($date_tab[1], $date_tab[0], $date_tab[2]))
-				{
-					$this->errors[$field] = $errorMsg;
-				}
-			}
-		}
-	}
-
-	/*
-		Verifie si la chaine de caractere est une chaine de charactere :)
-	*/
-	public function isString($field, $errorMsg)
-	{
-		if (!is_string($this->getField($field)))
-		{
-			$this->errors[$field] = $errorMsg;
-		}
-	}
 
 	/*
 		Verifie si la chaine de caractere n'est pas vide
@@ -139,65 +91,8 @@ class ValidatorController {
 	}
 
 	/*
-		Verifie si la valeur entrée est unique dans la base de donnees
-		$champ = Le champ a verifier dans la base de donnee
-		$table = La table a verifier dans la base de donnee
+		Fonction qui vérifie si la session est toujours valide
 	*/
-	public function isUniq($db, $champ, $table, $field, $errorMsg)
-	{
-		$record = $db->query("SELECT id FROM $table WHERE $champ = ?", [$this->getField($field)])->fetch();
-
-		if ($record)
-		{
-			$this->errors[$field] = $errorMsg;
-			$this->isError();
-		}
-	}
-
-	/*
-		Verifie si la variable est egale dans son champs "_confirm"
-		Utilisé pour verifier les "mot_de_passe" dans la varibale $_POST
-	*/
-	public function isConfirmed($field, $errorMsg)
-	{
-		$value = $this->getField($field);
-
-		if (empty($value) || $value != $this->getField($field . '_confirm'))
-		{
-			$this->errors[$field] = $errorMsg;
-			$this->isError();
-		}
-	}
-
-	/*
-		Fonction pour la connexion.
-		Verifie que le mot de passe et l'email du client sont correctes
-	*/
-	public function isGoodMember($db, $field_email, $field_mot_de_passe, $errorMsg)
-	{
-		$email = $this->getField($field_email);
-		$mot_de_passe = $this->getField($field_mot_de_passe);
-
-		$req = $db->query("SELECT id, mot_de_passe
-							FROM clients 
-							WHERE email = ?", [$email])->fetch();
-		if ($req)
-		{	
-			if (!password_verify($mot_de_passe, $req->mot_de_passe))
-			{
-				$this->errors[$field_email] = $errorMsg;
-				$this->errors[$field_mot_de_passe] = $errorMsg;
-				$this->isError();
-			}
-		}
-		else
-		{
-			$this->errors[$field_email] = $errorMsg;
-			$this->errors[$field_mot_de_passe] = $errorMsg;
-			$this->isError();
-		}
-	}
-	
 	public static function checkSession()
 	{
 		if ((!isset($_SESSION['role']) || !isset($_SESSION['id'])))

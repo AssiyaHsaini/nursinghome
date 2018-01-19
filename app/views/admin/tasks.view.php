@@ -26,7 +26,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
        <th scope="col"> Nom salle </th>       
        <th scope="col"> Description </th>
        <th scope="col">Date limite </th>
-       <th scope="col"> bouton</th> 
+       <th scope="col"> Supprimer</th> 
        </tr>
        </thead>
        <tbody>
@@ -66,38 +66,6 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
 
 
 
-
-<!-- <h1>ajouter tâche</h1> 
-</form>  
-       <form action="" method="POST">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                <label for="lastname"> Nom </label>
-                <input type="text" name="lastname" id="lastname"  class="form-control"  placeholder="Hsaini" required>
-                </div>
-                <div class="form-group col-md-6">
-                <label for="firstname">Prénom</label>
-                <input type="text" name="firstname" id="firstname"  class="form-control" placeholder="Assiya" required>
-                </div>
-                <div class="form-group col-md-6">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" class="form-control" id="inputAddress" placeholder="Email" required>
-                </div>
-                <div class="form-group col-md-6">
-                <label for="inputState">Role</label>
-                    <select name="role" id="role" class="form-control">
-                        <option selected>Choisir...</option>
-                        <option value="1">aide soignante</option>
-                    </select>
-                </div>
-                <input type="hidden" name="postMethod" value="create">   
-                <!-- <input type="submit" value="Inscrire" />    -->
-            <!-- <button type="submit" class="btn btn-primary">Inscrire</button> 
-                
-            </div>
-  
-       </form>     -->
-
        
 
        <h1>Ajouter tâche</h1> 
@@ -117,26 +85,11 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                 ?>
                 </select>
                 <div class="input-group-append">
-                <label class="input-group-text" for="personId">Options</label>
+                <label class="input-group-text" for="personId">Nom</label>
                 </div>
                 </div>
                    
-                <!-- <div class="input-group mb-3">
-                    <select name="personId" id="personId" class="custom-select">
-                    <?php 
-                    
-                    foreach($this->data['nursings'] as $nurse)
-                    { 
-                    ?>
-                            <option value= "<?= $nurse['id'] ?>"> <? echo $nurse['firstname'] ." ". $nurse['lastname'] . " - " . $nurse['id'] ; ?> </option>
-                    <?php    
-                    }
-                    ?>
-                    </select>
-                    <div class="input-group-append">
-                <label class="input-group-text" for="personId">Options</label>
-                </div>
-                </div> -->
+
                     
 
                 <div class="input-group mb-3">
@@ -151,7 +104,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                     ?>
                     </select>
                     <div class="input-group-append">
-                <label class="input-group-text" for="personId">Options</label>
+                <label class="input-group-text" for="personId">Tâche</label>
                 </div>
                 </div>
 
@@ -167,7 +120,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                    ?>
                    </select>
                    <div class="input-group-append">
-               <label class="input-group-text" for="personId">Options</label>
+               <label class="input-group-text" for="personId">Salle</label>
                </div>
                </div>
 
@@ -183,7 +136,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                    ?>
                    </select>
                    <div class="input-group-append">
-               <label class="input-group-text" for="personId">Options</label>
+               <label class="input-group-text" for="personId">Service</label>
                </div>
                </div>
 
@@ -200,7 +153,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
                     ?>
                     </select>
                     <div class="input-group-append">
-                <label class="input-group-text" for="personId">Options</label>
+                <label class="input-group-text" for="personId">Type Salle</label>
                 </div>
                 </div>
 
@@ -213,6 +166,7 @@ if (isset($this->data['nursingsw']) && count($this->data['nursingsw']) > 0 ) {
 
                     <input type="hidden" name="postMethod" value="add">       
                     <input type="submit" value="Ajouter" />  
+                   
        
        </form>
        

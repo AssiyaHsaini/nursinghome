@@ -37,6 +37,7 @@ CREATE TABLE rooms
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	service_id INT UNSIGNED NOT NULL,
     type_id INT UNSIGNED  NOT NULL,
+    name VARCHAR(30) NOT NULL,
     CONSTRAINT serviceconstraint FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE,
     CONSTRAINT typeconstraint FOREIGN KEY (type_id) REFERENCES roomtypes(id) ON DELETE CASCADE 
 );
