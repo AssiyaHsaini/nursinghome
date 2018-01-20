@@ -1,3 +1,6 @@
+ <!-- Cette classe est commune a toutes les vues de la cadre sante, afin de nous 
+ eviter de recopier ce code au début de chaque vue de la cadre sante, on le met dans "head.php" et on inclura ce fichier au début de chacune de nos vues. -->
+
 <?php
 // require_once(__DIR__ .'/head.php');
 require_once(__ROOT__ .'/app/views/common/head.php');

@@ -1,3 +1,7 @@
+ <!-- Cette classe est commune a toutes les vues, afin de nous 
+ eviter de recopier ce code au début de chaque vue, on le met dans "head.php" et on inclura ce fichier au début de chacune de nos vues. -->
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

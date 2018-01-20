@@ -4,7 +4,7 @@ namespace App;
 
 /**
  * classe qui implémente Singleton 
- * retourne une seule instance de la classe PDO
+ * retourne une seule instance de la classe PDO comme vu en cours
  */
 class PDOController
 {
@@ -16,7 +16,6 @@ class PDOController
         try
         {
             self::$instance = new \PDO("mysql:dbname=nursinghome;host=localhost",'root','root');
-            // self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }
        catch(Exception $e)
        {

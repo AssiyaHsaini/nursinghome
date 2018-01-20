@@ -6,6 +6,9 @@ use App\View;
 use App\QueriesController;
 
 
+/**
+ * Contrôleur qui vérifie que les champs tapés par l'utilisateur sont valide
+ */
 class ValidatorController {
 
 	private $data;
@@ -91,12 +94,12 @@ class ValidatorController {
 	}
 
 	/*
-		Fonction qui vérifie si la session est toujours valide
+		Fonction qui vérifie si la session est toujours valide.
 	*/
 	public static function checkSession()
 	{
-		if ((!isset($_SESSION['role']) || !isset($_SESSION['id'])))
-			header("Location: /nursinghome/");
+		if ((!isset($_SESSION['role']) || !isset($_SESSION['id']))) // Pour cela on vérifie que les données rôle et id de la session sont vides.
+			header("Location: /nursinghome/");// si elles sont vides, on le redirige vers la page de connexion. 
 	}
 
 	/*
@@ -117,6 +120,9 @@ class ValidatorController {
 		return $this->errors;
 	}
 
+	/*
+		Fonction qui vérifie que l'email est unique
+	*/
 	public function isUniqueEmail($field, $errorMsg)
 	{
 

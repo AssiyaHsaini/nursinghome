@@ -1,14 +1,18 @@
+<!-- Cette vue est destinée à la cadre santé, elle lui propose 4 lien sdifferents:
+    -Gestion des aides soignantes
+    -Affectation des tâches
+    -Tâches non effectuées
+    -Réinitialisation des tâches
+Chacun de ces liens la redirige vers une autre vue
+-->
 <?php
-  require_once(__ROOT__ .'/app/views/common/header-cadre.php');
+// on inclue "header-cadre.php" qui est commun a toute les vues de la cadre sante
+require_once(__ROOT__ .'/app/views/common/header-cadre.php');
 ?>
 
 <div class="container wow fadeIn">
 
-    <!-- <br>
-    <br>
-    <br>
-    <br>
-    <br> -->
+
 
     <div class="row head-row">
 
@@ -20,8 +24,8 @@
                         Gestion des aides soignantes
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Liste des aides soignantes</h5> -->
                         <p class="card-text">Voir et ajouter des aides soignantes</p>
+                        <!-- premier lien: -->
                         <a href="/nursinghome/admin/nursings" class="btn btn-dark btn-lg btn-right">Y aller</a>
                     </div>
                 </div>
@@ -31,8 +35,8 @@
                         Affectation des tâches
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Liste des tâches</h5> -->
                         <p class="card-text">Voir et ajouter les tâches aux aides soignantes</p>
+                        <!-- second lien -->
                         <a href="/nursinghome/admin/tasks" class="btn btn-dark btn-lg btn-right">Y aller</a>
                     </div>
                 </div>
@@ -41,7 +45,6 @@
         </div>
 
     </div>
-	<!-- END ROW -->
 	
 	<br>
 
@@ -55,8 +58,8 @@
                         Tâches non effectuées
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Liste des tâches non effectuées</h5> -->
                         <p class="card-text">Voir la liste des tâches non effectuées dans la durée impartie</p>
+                        <!-- troisième lien -->
                         <a href="/nursinghome/admin/tasksNotDid" class="btn btn-dark btn-lg btn-right">Y aller</a>
                     </div>
                 </div>
@@ -66,8 +69,8 @@
                         Réinitialisation des tâches
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">b</h5> -->
                         <p class="card-text">Permet la réinitialisation de toutes les tâches</p>
+                        <!-- dernier lier -->
                         <a href="/nursinghome/admin/reset" class="btn btn-dark btn-lg btn-right">Y aller</a>
                     </div>
                 </div>
@@ -76,15 +79,14 @@
         </div>
 
     </div>
-    <!-- END ROW -->
 
 </div>
-<!-- END CONTAINER -->
 
 
 
  
 
 <?php
-  require_once(__ROOT__ .'/app/views/common/footer.php');
+// on inclue le footer qui permet ici d'inclure les bibliotheque de bootstrap 
+require_once(__ROOT__ .'/app/views/common/footer.php');
 ?>

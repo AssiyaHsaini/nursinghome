@@ -1,4 +1,4 @@
-<HTML>
+<!-- <HTML>
 
 <!-- Vue pour créer un utilisateur par la cadre santé-->
 
@@ -22,3 +22,4 @@
        
     
 </HTML>
+ -->

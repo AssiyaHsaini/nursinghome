@@ -5,8 +5,15 @@ namespace App;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;   
 
+/**
+ * Classe qui s'occuper de générer un code aleatoire et d'envoyer un email
+ */
+
 class EmailController {
     
+    /*
+        Fonction qui envoie un email à §emailTo
+    */
     static function sendCode($mailTo, $code)
     {
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
@@ -20,12 +27,12 @@ class EmailController {
             $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
             $mail->Port = 587;    
         
-            $mail->SMTPAuth = true;                                  // Enable SMTP authentication
-            $mail->Username = 'nursing95@outlook.fr';                 // SMTP username
-            $mail->Password = 'momo123456';                // SMTP password
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'nursing95@outlook.fr';             // SMTP username
+            $mail->Password = 'momo123456';                       // SMTP password
             
             $mail->setFrom('nursing95@outlook.fr', 'Nursing Mailer');
-            $mail->addAddress($mailTo);               // Name is optional
+            $mail->addAddress($mailTo);                           // Name is optional
         
             //Content
             $mail->isHTML(true);                                  // Set email format to HTML
@@ -41,7 +48,11 @@ class EmailController {
         }   
     }
 
-    static function generateCode(): string {
+    /*
+        Fonction qui génère un code aleatoire 
+    */
+    static function generateCode()
+     {
 
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);

@@ -100,7 +100,7 @@ class QueriesController
     }
 
     /*
-        Fonction qui retourne la liste des tâches affectées à un utilisateur.
+        Fonction qui retourne la liste des tâches affectées à l'aide soignante connecté.
     */
     public function getTasks()
     {
@@ -187,12 +187,6 @@ class QueriesController
         JOIN services ON executedtask.id_service=services.id
         WHERE executedtask.id_person=?');
         $req->execute([$id]);
-        // $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task, executedtask.id_service
-        // FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
-        // JOIN rooms ON executedtask.id_room=rooms.id
-        // JOIN services ON rooms.service_id=services.id
-        // WHERE executedtask.id_person=?');
-        // $req->execute([$id]);
 
         return $req->fetchAll();
     }
@@ -329,17 +323,28 @@ class QueriesController
     {
         $db = PDOController::getInstance();
         
-        $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
-        FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
-        JOIN rooms ON executedtask.id_room=rooms.id     
-        JOIN services ON rooms.service_id=services.id
-        JOIN roomtypes ON roomtypes.id=rooms.type_id  
+        // $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
+        // FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
+        // JOIN rooms ON executedtask.id_room=rooms.id     
+        // JOIN services ON rooms.service_id=services.id
+        // JOIN roomtypes ON roomtypes.id=rooms.type_id  
+        // WHERE roomtypes.name=?');
+
+        $req = $db->prepare('SELECT executedtask.id_person,executedtask.id_room,executedtask.expirationdate,executedtask.did,executedtask.id_task,executedtask.id_service,persons.lastname,persons.firstname,rooms.name AS roomName, tasks.name AS taskName, roomtypes.name ,tasks.description,services.name AS serviceName 
+        FROM executedtask  JOIN persons ON executedtask.id_person=persons.id
+        JOIN rooms ON executedtask.id_room=rooms.id
+        JOIN tasks ON executedtask.id_task=tasks.id
+        JOIN services ON executedtask.id_service=services.id
+        JOIN roomtypes ON roomtypes.id=rooms.type_id
         WHERE roomtypes.name=?');
-        $req->execute(['salle_commune']);
+         $req->execute(['salle_commune']);
         return $req->fetchAll();
 
     }
 
+    /*
+        Fonction qui retourne la liste des services.
+    */
     public function getAllService()
     {
         $db = PDOController::getInstance();

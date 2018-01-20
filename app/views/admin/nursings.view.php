@@ -1,8 +1,12 @@
+<!-- Cette vue affiche les aides soignantes inscrites, et permet à la cadre sante de supprimer une aide soignatnte ou d'en ajouter une. -->
+<!-- Cette vue contient deux formulaire, un pour ajouter et un pour supprimer une aide soignante. -->
 <?php
 require_once(__DIR__ .'/../common/header-cadre.php');
 ?>
 
-<?php $this->showErrors(); ?>
+<?php
+// voir classe View.php 
+$this->showErrors(); ?>
 
 <div class="container wow bounceInLeft">
     <div class="row head-row align-items-center">
@@ -11,6 +15,7 @@ require_once(__DIR__ .'/../common/header-cadre.php');
 
     <div class="row">
 
+        <!-- tableau qui liste les informations des aides soignantes inscrite -->
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -85,7 +90,6 @@ require_once(__DIR__ .'/../common/header-cadre.php');
         </div>
         <input type="hidden"  name="role" value="1" >
         <input type="hidden" name="postMethod" value="create">
-        <!-- <input type="submit" value="Inscrire" /> -->
 
     </div>
     <button type="submit" class="btn btn-dark btn-lg btn-block">Valider</button>
