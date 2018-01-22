@@ -1,8 +1,10 @@
-<!-- Cette vue est destinée à la cadre santé, elle lui propose 4 lien sdifferents:
+<!-- Cette vue est destinée à la cadre santé, elle lui propose 5 lien sdifferents:
     -Gestion des aides soignantes
     -Affectation des tâches
     -Tâches non effectuées
     -Réinitialisation des tâches
+    -Création de tâche
+    
 Chacun de ces liens la redirige vers une autre vue
 -->
 <?php
@@ -13,7 +15,7 @@ require_once(__ROOT__ .'/app/views/common/header-cadre.php');
 <div class="container wow fadeIn">
 
 
-
+ <!-- première ligne  -->
     <div class="row head-row">
 
         <div class="col-sm-12">
@@ -45,9 +47,11 @@ require_once(__ROOT__ .'/app/views/common/header-cadre.php');
         </div>
 
     </div>
+    <!-- fin de la première ligne -->
 	
 	<br>
 
+ <!-- deuxième ligne  -->
     <div class="row">
 
         <div class="col-sm-12">
@@ -70,7 +74,7 @@ require_once(__ROOT__ .'/app/views/common/header-cadre.php');
                     </div>
                     <div class="card-body">
                         <p class="card-text">Permet la réinitialisation de toutes les tâches</p>
-                        <!-- dernier lier -->
+                        <!-- quatrième lier -->
                         <a href="/nursinghome/admin/reset" class="btn btn-dark btn-lg btn-right">Y aller</a>
                     </div>
                 </div>
@@ -79,6 +83,38 @@ require_once(__ROOT__ .'/app/views/common/header-cadre.php');
         </div>
 
     </div>
+
+</div>
+<!-- fin de la deuxieme ligne  -->
+
+<br>
+
+<!-- dernière ligne  -->
+<div class="container">
+<div class="row">
+
+<div class="col-sm-12">
+    <div class="card-deck">
+
+        <div class="card wow slideInLeft">
+            <div class="card-header">
+                Création de tâches
+            </div>
+            <div class="card-body">
+                <p class="card-text">Permet la création de nouvelles tâches</p>
+                <!-- dernier lien -->
+                <a href="/nursinghome/admin/createTasks" class="btn btn-dark btn-lg btn-right">Y aller</a>
+            </div>
+        </div>
+
+    
+
+    </div>
+</div>
+</div>
+
+
+</div>
 
 </div>
 

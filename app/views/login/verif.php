@@ -1,1 +1,0 @@
-<h1> echo $_POST['code']; <h1/>

@@ -222,9 +222,11 @@ class AdminController {
     }
 
 
-    /*
+    
 
-    // Fonction qui permet à une aide soignante de valider une tâche
+    /*
+        Fonction qui permet à une aide soignante de valider une tâche
+    */
     static function validerPostsAction()
 
      {
@@ -248,51 +250,71 @@ class AdminController {
     
          $view->render();
      }
-     */
+     
 
         
    
    
    
-     static function validerPostsAction()
+//      static function validerPostsAction()
+//     {
+//         ValidatorController::checkSession();
+//         $q = new QueriesController();
+
+
+//          if ($_POST['postMethod'] == "me")
+//          {   
+//            $date =  $q->getDaysExpiration($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
+           
+//            if ($date<0) 
+//             {
+//                 $tasks = $q->getTasks();
+//                 $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "errors" => "Le delai de cette tache est expiré"]); 
+//             }
+//             else 
+//             {
+//                $q->validerTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
+//                $tasks = $q->getTasks();
+//                $commonTasks = $q->getCommonTasks();
+//                $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "message" => "Tâche faite"]); 
+//             }
+//         }
+        
+//         else if ($_POST['postMethod'] == "autres")
+//        {
+//            $tasks = $q->getTasks();
+//            $commonTasks = $q->getCommonTasks();
+//            $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, 'common' => $commonTasks]); 
+           
+//        }
+
+
+
+
+   
+//         $view->render();
+//  }
+
+
+    static function createTask()
+    {
+        ValidatorController::checkSession();
+        $view = new View(__DIR__ . "/../views/admin/createTasks.view.php", []); 
+        $view->render();
+    }
+
+    static function createTaskAction()
     {
         ValidatorController::checkSession();
         $q = new QueriesController();
-
-
-         if ($_POST['postMethod'] == "me")
-         {   
-           $date =  $q->getDaysExpiration($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
-           
-           if ($date<0) 
-            {
-                $tasks = $q->getTasks();
-                $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "errors" => "Le delai de cette tache est expiré"]); 
-            }
-            else 
-            {
-               $q->validerTask($_POST['personId'],$_POST['taskId'],$_POST['roomId']);
-               $tasks = $q->getTasks();
-               $commonTasks = $q->getCommonTasks();
-               $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, "message" => "Tâche faite"]); 
-            }
-        }
-        
-        else if ($_POST['postMethod'] == "autres")
-       {
-           $tasks = $q->getTasks();
-           $commonTasks = $q->getCommonTasks();
-           $view = new View(__DIR__ . "/../views/admin/aideSoignante.view.php", ['tasks' => $tasks, 'common' => $commonTasks]); 
-           
-       }
-
-
-
-
-   
+        $req= $q->createTasks($_POST['name'],$_POST['description']);
+        $view = new View(__DIR__ . "/../views/admin/createTasks.view.php", []); 
         $view->render();
- }
-
+         // une fois que la cadre santé appuie sur le bouton de réinitialisation, un message s'affiche sur la page grâce à du javascript
+         $tab["message"]= "La tâche a été ajoutée"; // message en question 
+         $tab["error"]= 0;
+         echo json_encode ($tab); // convertit $tab en json, cette données est ensuite traité dans "main.js"
+    }
     
 
 

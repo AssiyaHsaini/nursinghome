@@ -44,21 +44,24 @@ class QueriesController
         $req->execute([$email]);
         $data = $req->fetch();
         
+        // si data est non nul, alors on en déduit de l'utilisateur existe.
         if ($data)
         {
-            if ($data['code'] == $code)
+            if ($data['code'] == $code) // si le code est bon, on crée une session à l'utilisateur.
             {
                 $_SESSION["id"]=$data['id'];
                 $_SESSION["lastname"]=$data['lastname'];
                 $_SESSION["firstname"]=$data['firstname'];
                 $_SESSION["role"]=$data['role'];
             }
-            else 
+            else // si le code entré ne corespond pas a celui ans notre BDD, alors l'utilisateur s'est trompé de mot de passe.
             {
                 $response["error"]=true;
                 $response["message"]="Code incorrecte";
             }
         }
+
+        // si data est  nul, alors on en déduit de l'utilisateur n'existe pas. 
         else
         {
             $response["error"]=true;
@@ -322,13 +325,6 @@ class QueriesController
     public function getCommonTasks()
     {
         $db = PDOController::getInstance();
-        
-        // $req = $db->prepare('SELECT services.name AS serviceName, executedtask.id_room, rooms.name AS roomName, executedtask.expirationdate , tasks.name, tasks.description, executedtask.id_task AS id_task
-        // FROM executedtask JOIN tasks ON executedtask.id_task=tasks.id 
-        // JOIN rooms ON executedtask.id_room=rooms.id     
-        // JOIN services ON rooms.service_id=services.id
-        // JOIN roomtypes ON roomtypes.id=rooms.type_id  
-        // WHERE roomtypes.name=?');
 
         $req = $db->prepare('SELECT executedtask.id_person,executedtask.id_room,executedtask.expirationdate,executedtask.did,executedtask.id_task,executedtask.id_service,persons.lastname,persons.firstname,rooms.name AS roomName, tasks.name AS taskName, roomtypes.name ,tasks.description,services.name AS serviceName 
         FROM executedtask  JOIN persons ON executedtask.id_person=persons.id
@@ -353,6 +349,18 @@ class QueriesController
         $req->execute([]);
         return $req->fetchAll();
                 
+    }
+
+    /*
+        Fonction qui permet de créer des tâches (insertion dans la BDD)
+    */
+    public function createTasks($name,$description)
+    {
+        $db = PDOController::getInstance();
+        $req = $db->prepare('INSERT INTO tasks(name,description) VALUES (?,?)');
+        $req->execute([$name, $description]);
+        return $req->fetchAll();
+        
     }
 
 }

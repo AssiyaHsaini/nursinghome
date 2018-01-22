@@ -11,7 +11,9 @@ use App\RouterController;  // L'autoload va automatiquement inclure le fichier
 
 // création d'un routeur
 $router = new RouterController($_GET['url']); 
- 
+
+// les differents mapping. Par exemple, lorsqu'on se trouve sur l'url "/logout", alors on execute le méthode "logoutAction" de la classe "AuthenticationController"
+
 $router->get('/', "\AuthenticationController::indexAction");
 $router->post('/', "\AuthenticationController::indexPostAction");
 $router->get('/logout', "\AuthenticationController::logoutAction");
@@ -24,5 +26,10 @@ $router->post('/admin/tasks', "\AdminController::tasksPostsAction");
 $router->get('/admin/reset', "\AdminController::resetAction");
 $router->post('/admin/reset', "\AdminController::resetPostsAction");
 $router->get('/admin/tasksNotDid', "\AdminController::didAction");
+
+$router->get('/admin/createTasks', "\AdminController::createTask");
+$router->post('/admin/createTasks', "\AdminController::createTaskAction");
+
+
 
 $router->run();
